@@ -1,13 +1,19 @@
-'use client'
+'use client';
 
 import { motion } from "framer-motion";
-import { useEffect, useState, useCallback } from "react";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 export default function AstroQuizPage() {
   const [step, setStep] = useState("landing");
   const [gender, setGender] = useState(null);
   const [answers, setAnswers] = useState([]);
-  const [userInfo, setUserInfo] = useState({ name: "", email: "", phone: "" });
+
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm({ mode: "onChange" });
 
   const sharedQuestions = [
     "What element are you most drawn to?",
@@ -30,28 +36,21 @@ export default function AstroQuizPage() {
   ];
 
   const handleSelect = (option) => {
-    setAnswers((prev) => [...prev, option]);
     const nextIndex = answers.length + 1;
-    if (nextIndex < sharedQuestions.length + 1) {
+    setAnswers((prev) => [...prev, option]);
+
+    if (nextIndex < sharedQuestions.length) {
       setStep(`${gender}-${nextIndex}`);
     } else {
       setStep("info");
     }
   };
 
-  const isValidInfo = userInfo.name && userInfo.email && userInfo.phone;
-
-  const handleChange = useCallback((field) => (e) => {
-    setUserInfo((prev) => ({ ...prev, [field]: e.target.value }));
-  }, []);
-
-  const handleInfoSubmit = () => {
-    if (!isValidInfo) return;
-
+  const onSubmit = (data) => {
     const formData = new FormData();
-    formData.append("name", userInfo.name);
-    formData.append("email", userInfo.email);
-    formData.append("phone", userInfo.phone);
+    formData.append("name", data.name);
+    formData.append("email", data.email);
+    formData.append("phone", data.phone);
 
     fetch("https://www.aweber.com/scripts/addlead.pl", {
       method: "POST",
@@ -60,8 +59,11 @@ export default function AstroQuizPage() {
     });
 
     setStep("product");
+
     setTimeout(() => {
-      const redirectUrl = gender === "male" ? "https://your-male-product.com" : "https://your-female-product.com";
+      const redirectUrl = gender === "male"
+        ? "https://your-male-product.com"
+        : "https://your-female-product.com";
       window.location.href = redirectUrl;
     }, 60000);
   };
@@ -116,15 +118,15 @@ export default function AstroQuizPage() {
       >
         <h2 className="font-serif text-2xl mb-4">Are you Male or Female?</h2>
         <div className="space-y-3">
-          <button onClick={() => { setGender("male"); setStep("male-1"); }} className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl">Male</button>
-          <button onClick={() => { setGender("female"); setStep("female-1"); }} className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl">Female</button>
+          <button onClick={() => { setGender("male"); setStep("male-0"); }} className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl">Male</button>
+          <button onClick={() => { setGender("female"); setStep("female-0"); }} className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl">Female</button>
         </div>
       </motion.div>
     </Overlay>
   );
 
   const renderQuestion = () => {
-    const index = parseInt(step.split("-")[1]) - 1;
+    const index = parseInt(step.split("-")[1]);
     const question = sharedQuestions[index];
     const options = sharedOptions[index];
 
@@ -133,7 +135,7 @@ export default function AstroQuizPage() {
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
+          transition={{ duration: 0.8 }}
           className="bg-white/10 backdrop-blur-xl p-8 rounded-2xl max-w-md w-full border border-white/20 shadow-xl text-center"
         >
           <h2 className="font-serif text-2xl mb-4">{question}</h2>
@@ -155,42 +157,42 @@ export default function AstroQuizPage() {
 
   const renderInfoForm = () => (
     <Overlay>
-      <motion.div
-        initial={{ opacity: 0, y: 30 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="bg-white/10 backdrop-blur-xl p-8 rounded-2xl max-w-md w-full border border-white/20 shadow-xl"
-      >
+      <form onSubmit={handleSubmit(onSubmit)} className="bg-white/10 backdrop-blur-xl p-8 rounded-2xl max-w-md w-full border border-white/20 shadow-xl">
         <h2 className="font-serif text-2xl mb-4 text-center">Enter Your Info</h2>
         <input
-          type="text"
+          {...register("name", { required: "Name is required" })}
           placeholder="Name"
-          value={userInfo.name}
-          onChange={handleChange("name")}
           className="w-full mb-3 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white"
         />
+        {errors.name && <p className="text-red-400 text-sm mb-2">{errors.name.message}</p>}
+
         <input
-          type="email"
+          {...register("email", {
+            required: "Email is required",
+              message: "Invalid email address",
+          })}
           placeholder="Email"
-          value={userInfo.email}
-          onChange={handleChange("email")}
           className="w-full mb-3 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white"
         />
+        {errors.email && <p className="text-red-400 text-sm mb-2">{errors.email.message}</p>}
+
         <input
-          type="tel"
+          {...register("phone", {
+            required: "Phone is required"
+          })}
           placeholder="Phone Number"
-          value={userInfo.phone}
-          onChange={handleChange("phone")}
-          className="w-full mb-6 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white"
+          className="w-full mb-3 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white"
         />
+        {errors.phone && <p className="text-red-400 text-sm mb-4">{errors.phone.message}</p>}
+
         <button
-          onClick={handleInfoSubmit}
-          disabled={!isValidInfo}
+          type="submit"
+          disabled={!isValid}
           className="w-full py-3 px-4 bg-yellow-500 hover:bg-yellow-600 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
         >
           See My Result
         </button>
-      </motion.div>
+      </form>
     </Overlay>
   );
 
@@ -219,5 +221,6 @@ export default function AstroQuizPage() {
   if (step.startsWith("male") || step.startsWith("female")) return renderQuestion();
   if (step === "info") return renderInfoForm();
   if (step === "product") return renderProduct();
+
   return null;
 }
