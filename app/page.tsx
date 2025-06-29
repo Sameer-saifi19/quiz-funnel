@@ -1,7 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
 export default function AstroQuizPage() {
@@ -34,15 +34,51 @@ export default function AstroQuizPage() {
     ['The Warrior 🛡️', 'The Healer 🌿', 'The Seer 🔮', 'The Trickster 🎭'],
   ];
 
-  const handleSelect = (option) => {
-    const nextIndex = answers.length + 1;
-    setAnswers((prev) => [...prev, option]);
+  const isQuestionStep = step.startsWith('male') || step.startsWith('female');
+  const currentQuestionIndex = isQuestionStep ? parseInt(step.split('-')[1]) : 0;
+  const progressPercentage = Math.round((currentQuestionIndex / sharedQuestions.length) * 100);
 
+  useEffect(() => {
+    const saved = localStorage.getItem('astroQuizState');
+    if (saved) {
+      const { step, gender, answers } = JSON.parse(saved);
+      setStep(step);
+      setGender(gender);
+      setAnswers(answers);
+    }
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('astroQuizState', JSON.stringify({ step, gender, answers }));
+  }, [step, gender, answers]);
+
+  const handleSelect = (option) => {
+    const newAnswers = [...answers];
+    newAnswers[currentQuestionIndex] = option;
+    setAnswers(newAnswers);
+
+    const nextIndex = currentQuestionIndex + 1;
     if (nextIndex < sharedQuestions.length) {
       setStep(`${gender}-${nextIndex}`);
     } else {
       setStep('info');
     }
+  };
+
+  const goBack = () => {
+    const prevIndex = currentQuestionIndex - 1;
+    if (prevIndex >= 0) {
+      setStep(`${gender}-${prevIndex}`);
+    } else {
+      setStep('gender');
+    }
+  };
+
+  const resetQuiz = () => {
+    setStep('landing');
+    setGender(null);
+    setAnswers([]);
+    localStorage.removeItem('astroQuizState');
   };
 
   const onSubmit = (data) => {
@@ -58,6 +94,8 @@ export default function AstroQuizPage() {
     });
 
     setStep('product');
+    localStorage.removeItem('astroQuizState');
+
     setTimeout(() => {
       const redirectUrl =
         gender === 'male'
@@ -78,9 +116,22 @@ export default function AstroQuizPage() {
       <header className="relative z-10 p-4 sm:p-6 text-white text-lg sm:text-xl font-bold">
         📖 Bible Identity Quiz
       </header>
+
+      {isQuestionStep && (
+        <div className="w-full bg-white/20 h-2">
+          <motion.div
+            className="bg-yellow-400 h-full"
+            initial={false}
+            animate={{ width: `${progressPercentage}%` }}
+            transition={{ duration: 0.6, ease: 'easeInOut' }}
+          />
+        </div>
+      )}
+
       <main className="relative z-10 flex-grow flex items-center justify-center px-4 sm:px-6 text-white">
         {children}
       </main>
+
       <footer className="relative z-10 p-4 text-center text-xs sm:text-sm text-white bg-black bg-opacity-30">
         © 2025 DivineDestiny. All rights reserved.
       </footer>
@@ -128,6 +179,7 @@ export default function AstroQuizPage() {
           <button
             onClick={() => {
               setGender('male');
+              setAnswers([]);
               setStep('male-0');
             }}
             className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl text-sm sm:text-base"
@@ -137,6 +189,7 @@ export default function AstroQuizPage() {
           <button
             onClick={() => {
               setGender('female');
+              setAnswers([]);
               setStep('female-0');
             }}
             className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl text-sm sm:text-base"
@@ -149,7 +202,7 @@ export default function AstroQuizPage() {
   );
 
   const renderQuestion = () => {
-    const index = parseInt(step.split('-')[1]);
+    const index = currentQuestionIndex;
     const question = sharedQuestions[index];
     const options = sharedOptions[index];
 
@@ -167,11 +220,22 @@ export default function AstroQuizPage() {
               <button
                 key={opt}
                 onClick={() => handleSelect(opt)}
-                className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl transition text-sm sm:text-base"
+                className={`w-full py-3 px-4 border rounded-xl transition text-sm sm:text-base ${
+                  answers[index] === opt
+                    ? 'bg-yellow-500 text-black font-semibold'
+                    : 'border-white/30 hover:bg-white/10'
+                }`}
               >
                 {opt}
               </button>
             ))}
+          </div>
+          <div className="flex justify-between mt-6 text-xs text-white">
+            {index > 0 && (
+              <button onClick={goBack} className="cursor-pointer text-sm hover:text-yellow-300">
+                ← Go Back
+              </button>
+            )}
           </div>
         </motion.div>
       </Overlay>
@@ -207,12 +271,24 @@ export default function AstroQuizPage() {
           className="w-full mb-6 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white text-sm sm:text-base"
         />
 
+        {!name || !email || !phone ? (
+          <p className="text-xs text-red-200 mb-3">Please fill out all fields</p>
+        ) : null}
+
         <button
           type="submit"
           disabled={!name || !email || !phone}
           className="w-full py-3 px-4 bg-yellow-500 hover:bg-yellow-600 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
         >
           See My Result
+        </button>
+
+        <button
+          onClick={resetQuiz}
+          type="button"
+          className="mt-4 text-white block w-full text-center cursor-pointer text-sm hover:text-yellow-300"
+        >
+          ← Start Over
         </button>
       </form>
     </Overlay>
@@ -246,7 +322,7 @@ export default function AstroQuizPage() {
 
   if (step === 'landing') return renderLanding();
   if (step === 'gender') return renderGender();
-  if (step.startsWith('male') || step.startsWith('female')) return renderQuestion();
+  if (isQuestionStep) return renderQuestion();
   if (step === 'info') return renderInfoForm();
   if (step === 'product') return renderProduct();
   return null;
