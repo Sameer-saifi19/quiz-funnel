@@ -1,103 +1,223 @@
-import Image from "next/image";
+'use client'
 
-export default function Home() {
-  return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+import { motion } from "framer-motion";
+import { useEffect, useState, useCallback } from "react";
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
+export default function AstroQuizPage() {
+  const [step, setStep] = useState("landing");
+  const [gender, setGender] = useState(null);
+  const [answers, setAnswers] = useState([]);
+  const [userInfo, setUserInfo] = useState({ name: "", email: "", phone: "" });
+
+  const sharedQuestions = [
+    "What element are you most drawn to?",
+    "Which celestial body influences you the most?",
+    "Choose a mystical symbol that resonates with you:",
+    "When do you feel most energized?",
+    "What’s your ideal spiritual tool?",
+    "Which spirit animal speaks to your soul?",
+    "Pick the mythological archetype that inspires you:"
+  ];
+
+  const sharedOptions = [
+    ["Fire 🔥", "Water 🌊", "Earth 🌍", "Air 🌬️"],
+    ["The Sun ☀️", "The Moon 🌙", "Venus 💖", "Mars 💢"],
+    ["Pentagram 🔯", "Yin Yang ☯️", "Eye of Horus 👁️", "Tree of Life 🌳"],
+    ["Sunrise 🌅", "Noon ☀️", "Sunset 🌇", "Midnight 🌌"],
+    ["Tarot Cards 🃏", "Crystal Ball 🔮", "Runes 🪙", "Meditation Beads 📿"],
+    ["Wolf 🐺", "Owl 🦉", "Butterfly 🦋", "Snake 🐍"],
+    ["The Warrior 🛡️", "The Healer 🌿", "The Seer 🔮", "The Trickster 🎭"]
+  ];
+
+  const handleSelect = (option) => {
+    setAnswers((prev) => [...prev, option]);
+    const nextIndex = answers.length + 1;
+    if (nextIndex < sharedQuestions.length + 1) {
+      setStep(`${gender}-${nextIndex}`);
+    } else {
+      setStep("info");
+    }
+  };
+
+  const isValidInfo = userInfo.name && userInfo.email && userInfo.phone;
+
+  const handleChange = useCallback((field) => (e) => {
+    setUserInfo((prev) => ({ ...prev, [field]: e.target.value }));
+  }, []);
+
+  const handleInfoSubmit = () => {
+    if (!isValidInfo) return;
+
+    const formData = new FormData();
+    formData.append("name", userInfo.name);
+    formData.append("email", userInfo.email);
+    formData.append("phone", userInfo.phone);
+
+    fetch("https://www.aweber.com/scripts/addlead.pl", {
+      method: "POST",
+      mode: "no-cors",
+      body: formData,
+    });
+
+    setStep("product");
+    setTimeout(() => {
+      const redirectUrl = gender === "male" ? "https://your-male-product.com" : "https://your-female-product.com";
+      window.location.href = redirectUrl;
+    }, 60000);
+  };
+
+  const backgroundWrapperStyle = {
+    backgroundImage: "url('/bg.jpg')",
+    backgroundSize: "cover",
+    backgroundPosition: "center",
+  };
+
+  const Overlay = ({ children }) => (
+    <div className="min-h-screen flex flex-col justify-between" style={backgroundWrapperStyle}>
+      <header className="relative z-10 p-4 text-white text-xl font-bold">📖 Bible Identity Quiz</header>
+      <main className="relative z-10 flex-grow flex items-center justify-center px-4 text-white">
+        {children}
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
+      <footer className="relative z-10 p-4 text-center text-sm text-white bg-black bg-opacity-30">
+        © 2025 DivineDestiny. All rights reserved.
       </footer>
     </div>
   );
+
+  const renderLanding = () => (
+    <Overlay>
+      <motion.div
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 1 }}
+        className="text-center max-w-2xl mx-auto"
+      >
+        <h1 className="text-3xl sm:text-4xl font-serif mb-4">Which Bible Character Are You Most Like?</h1>
+        <p className="text-lg sm:text-xl mb-2">Discover the ancient power hidden within your soul.</p>
+        <p className="text-md sm:text-lg mb-4">Unlock your God-given Abundance Blueprint in just 7 simple questions.</p>
+        <p className="text-sm mb-6">Over 10,000 lives transformed. Now it’s your turn.</p>
+        <button
+          onClick={() => setStep("gender")}
+          className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-3 px-6 rounded-full shadow-md transition"
+        >
+          Start the Quiz Now - It’s Free
+        </button>
+      </motion.div>
+    </Overlay>
+  );
+
+  const renderGender = () => (
+    <Overlay>
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white/10 backdrop-blur-xl p-8 rounded-2xl max-w-md w-full border border-white/20 shadow-xl text-center"
+      >
+        <h2 className="font-serif text-2xl mb-4">Are you Male or Female?</h2>
+        <div className="space-y-3">
+          <button onClick={() => { setGender("male"); setStep("male-1"); }} className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl">Male</button>
+          <button onClick={() => { setGender("female"); setStep("female-1"); }} className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl">Female</button>
+        </div>
+      </motion.div>
+    </Overlay>
+  );
+
+  const renderQuestion = () => {
+    const index = parseInt(step.split("-")[1]) - 1;
+    const question = sharedQuestions[index];
+    const options = sharedOptions[index];
+
+    return (
+      <Overlay>
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-white/10 backdrop-blur-xl p-8 rounded-2xl max-w-md w-full border border-white/20 shadow-xl text-center"
+        >
+          <h2 className="font-serif text-2xl mb-4">{question}</h2>
+          <div className="space-y-3">
+            {options.map((opt) => (
+              <button
+                key={opt}
+                onClick={() => handleSelect(opt)}
+                className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl transition"
+              >
+                {opt}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+      </Overlay>
+    );
+  };
+
+  const renderInfoForm = () => (
+    <Overlay>
+      <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.5 }}
+        className="bg-white/10 backdrop-blur-xl p-8 rounded-2xl max-w-md w-full border border-white/20 shadow-xl"
+      >
+        <h2 className="font-serif text-2xl mb-4 text-center">Enter Your Info</h2>
+        <input
+          type="text"
+          placeholder="Name"
+          value={userInfo.name}
+          onChange={handleChange("name")}
+          className="w-full mb-3 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white"
+        />
+        <input
+          type="email"
+          placeholder="Email"
+          value={userInfo.email}
+          onChange={handleChange("email")}
+          className="w-full mb-3 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white"
+        />
+        <input
+          type="tel"
+          placeholder="Phone Number"
+          value={userInfo.phone}
+          onChange={handleChange("phone")}
+          className="w-full mb-6 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white"
+        />
+        <button
+          onClick={handleInfoSubmit}
+          disabled={!isValidInfo}
+          className="w-full py-3 px-4 bg-yellow-500 hover:bg-yellow-600 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed"
+        >
+          See My Result
+        </button>
+      </motion.div>
+    </Overlay>
+  );
+
+  const renderProduct = () => (
+    <Overlay>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="text-center"
+      >
+        <h2 className="text-3xl font-serif mb-4">Unlock Your Divine Destiny 💫</h2>
+        <p className="text-white/80 mb-4">Redirecting you to your personalized blessing in 60 seconds...</p>
+        <a
+          href={gender === "male" ? "https://your-male-product.com" : "https://your-female-product.com"}
+          className="underline text-yellow-300"
+        >
+          Click here if not redirected
+        </a>
+      </motion.div>
+    </Overlay>
+  );
+
+  if (step === "landing") return renderLanding();
+  if (step === "gender") return renderGender();
+  if (step.startsWith("male") || step.startsWith("female")) return renderQuestion();
+  if (step === "info") return renderInfoForm();
+  if (step === "product") return renderProduct();
+  return null;
 }
