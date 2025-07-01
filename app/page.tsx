@@ -15,24 +15,92 @@ export default function AstroQuizPage() {
   const phone = watch('phone');
 
   const sharedQuestions = [
-    'What element are you most drawn to?',
-    'Which celestial body influences you the most?',
-    'Choose a mystical symbol that resonates with you:',
-    'When do you feel most energized?',
-    'What’s your ideal spiritual tool?',
-    'Which spirit animal speaks to your soul?',
-    'Pick the mythological archetype that inspires you:',
+    'Which of these life paths feels most like yours?',
+    'How do you handle divine nudges or dreams that won’t go away?',
+    'What role do you naturally take in relationships or community?',
+    'What’s your current season of life feel like?',
+    'Which Bible quote resonates most deeply with you?',
+    'What legacy do you hope to leave?',
   ];
 
-  const sharedOptions = [
-    ['Fire 🔥', 'Water 🌊', 'Earth 🌍', 'Air 🌬️'],
-    ['The Sun ☀️', 'The Moon 🌙', 'Venus 💖', 'Mars 💢'],
-    ['Pentagram 🔯', 'Yin Yang ☯️', 'Eye of Horus 👁️', 'Tree of Life 🌳'],
-    ['Sunrise 🌅', 'Noon ☀️', 'Sunset 🌇', 'Midnight 🌌'],
-    ['Tarot Cards 🃏', 'Crystal Ball 🔮', 'Runes 🪙', 'Meditation Beads 📿'],
-    ['Wolf 🐺', 'Owl 🦉', 'Butterfly 🦋', 'Snake 🐍'],
-    ['The Warrior 🛡️', 'The Healer 🌿', 'The Seer 🔮', 'The Trickster 🎭'],
-  ];
+  const optionsByGender = {
+    male: [
+      [
+        'I’ve been through exile or failure, but sense it was shaping me for a higher mission.',
+        'I’ve felt the weight of responsibility I didn’t ask for, but can’t ignore.',
+        'I’ve wrestled with identity, yet still feel chosen for something greater.',
+        'I’ve had moments where I had to walk alone in faith.'
+      ],
+      [
+        'I question them — not because I don’t believe, but because I wonder if I’m enough.',
+        'I ask for signs or clarity before I move forward.',
+        'I feel called, but sometimes fear I’ll mess it up.',
+        'I eventually obey, even if I resist at first.'
+      ],
+      [
+        'I step into leadership, even if reluctantly.',
+        'I often carry a message or calling that others don’t yet understand.',
+        'I guide others through change or transformation.',
+        'I’m the one people turn to when spiritual clarity is needed.'
+      ],
+      [
+        'A wilderness season — preparation for what’s coming.',
+        'A calling season — something divine is awakening in me.',
+        'A wrestling season — I’m facing inner doubts but know I must rise.',
+        'A commissioning season — I sense I’m being sent for something big.'
+      ],
+      [
+        '“Who am I, that I should go?” (Exodus 3:11)',
+        '“Here I am… even if I don’t feel ready.” (Exodus 3:4)',
+        '“I will be with you.” (Exodus 3:12)',
+        '“Speak to the people… and lead them out.” (Exodus 3:10, 6:13)'
+      ],
+      [
+        'Leading others into freedom and purpose.',
+        'Being remembered for answering the call, despite fear.',
+        'Shifting generations through obedience to divine purpose.',
+        'Creating a path where others once saw only bondage.'
+      ]
+    ],
+    female: [
+     [
+        'I’ve supported someone else’s calling while honoring my own strength.',
+        'I’ve made quiet sacrifices few will ever know — but God sees.',
+        'I’ve protected my family or faith with bold decisions.',
+        'I’ve walked a sacred path behind the scenes.'
+      ],
+      [
+        'I act with spiritual boldness when it matters most.',
+        'I trust God’s timing and protect what’s sacred.',
+        'I quietly discern, then move decisively.',
+        'I honor my instincts and spiritual authority as a woman of faith.'
+      ],
+      [
+        'I’m the spiritual protector of my home or space.',
+        'I offer strength from behind the scenes — calm, steady, powerful.',
+        'I hold space for others to rise while never forgetting my own path.',
+        'I act when no one else will, even when it costs me.'
+      ],
+      [
+        'A hidden season — I’m not in the spotlight, but I matter deeply.',
+        'A watchful season — I’m guarding something sacred.',
+        'A strengthening season — I’m growing deeper roots of faith.',
+        'A threshold season — I’m about to take a courageous step.'
+      ],
+      [
+        '“A wise woman builds her home.” (Proverbs 14:1)',
+        '“She stepped in boldly when everything was at stake.” (Exodus 4:25)',
+        '“Strength and dignity are her clothing.” (Proverbs 31:25)',
+        '“She opens her mouth with wisdom.” (Proverbs 31:26)'
+      ],
+      [
+        'Creating spiritual safety for generations to come.',
+        'Being remembered for courageous, faith-filled action.',
+        'Uplifting others through quiet strength and sacred love.',
+        'Protecting what matters most, even when no one sees it.'
+      ]
+    ],
+  };
 
   const isQuestionStep = step.startsWith('male') || step.startsWith('female');
   const currentQuestionIndex = isQuestionStep ? parseInt(step.split('-')[1]) : 0;
@@ -204,7 +272,7 @@ export default function AstroQuizPage() {
   const renderQuestion = () => {
     const index = currentQuestionIndex;
     const question = sharedQuestions[index];
-    const options = sharedOptions[index];
+    const options = gender ? optionsByGender[gender][index] : [];
 
     return (
       <Overlay>
@@ -232,7 +300,7 @@ export default function AstroQuizPage() {
           </div>
           <div className="flex justify-between mt-6 text-xs text-white">
             {index > 0 && (
-              <button onClick={goBack} className="cursor-pointer text-sm hover:text-yellow-300">
+              <button onClick={goBack} className="text-sm text-white cursor-pointer hover:text-yellow-300">
                 ← Go Back
               </button>
             )}
@@ -270,10 +338,6 @@ export default function AstroQuizPage() {
           {...register('phone')}
           className="w-full mb-6 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white text-sm sm:text-base"
         />
-
-        {!name || !email || !phone ? (
-          <p className="text-xs text-red-200 mb-3">Please fill out all fields</p>
-        ) : null}
 
         <button
           type="submit"
