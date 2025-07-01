@@ -6,10 +6,10 @@ import { useForm } from 'react-hook-form';
 
 export default function AstroQuizPage() {
   const [step, setStep] = useState('landing');
-  const [gender, setGender] = useState(null);
-  const [answers, setAnswers] = useState([]);
+  const [gender, setGender] = useState<'male' | 'female' | null>(null);
+  const [answers, setAnswers] = useState<string[]>([]);
 
-  const { register, handleSubmit, watch } = useForm();
+  const { register, handleSubmit, watch } = useForm<{ name: string; email: string; phone: string }>();
   const name = watch('name');
   const email = watch('email');
   const phone = watch('phone');
@@ -120,7 +120,7 @@ export default function AstroQuizPage() {
     localStorage.setItem('astroQuizState', JSON.stringify({ step, gender, answers }));
   }, [step, gender, answers]);
 
-  const handleSelect = (option) => {
+  const handleSelect = (option: string) => {
     const newAnswers = [...answers];
     newAnswers[currentQuestionIndex] = option;
     setAnswers(newAnswers);
@@ -149,7 +149,7 @@ export default function AstroQuizPage() {
     localStorage.removeItem('astroQuizState');
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (data: { name: string; email: string; phone: string }) => {
     const formData = new FormData();
     formData.append('name', data.name);
     formData.append('email', data.email);
@@ -167,8 +167,8 @@ export default function AstroQuizPage() {
     setTimeout(() => {
       const redirectUrl =
         gender === 'male'
-          ? 'https://your-male-product.com'
-          : 'https://your-female-product.com';
+          ? 'https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219'
+          : 'https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219';
       window.location.href = redirectUrl;
     }, 60000);
   };
@@ -179,7 +179,7 @@ export default function AstroQuizPage() {
     backgroundPosition: 'center',
   };
 
-  const Overlay = ({ children }) => (
+  const Overlay: React.FC<{ children: React.ReactNode }> = ({ children }) => (
     <div className="min-h-screen flex flex-col justify-between" style={backgroundWrapperStyle}>
       <header className="relative z-10 p-4 sm:p-6 text-white text-lg sm:text-xl font-bold">
         📖 Bible Identity Quiz
@@ -201,7 +201,7 @@ export default function AstroQuizPage() {
       </main>
 
       <footer className="relative z-10 p-4 text-center text-xs sm:text-sm text-white bg-black bg-opacity-30">
-        © 2025 DivineDestiny. All rights reserved.
+        © 2025 Accelevate. All rights reserved.
       </footer>
     </div>
   );
@@ -212,21 +212,21 @@ export default function AstroQuizPage() {
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
-        className="text-center max-w-2xl mx-auto px-4"
+        className="text-center max-w-3xl mx-auto px-4"
       >
-        <h1 className="text-2xl sm:text-4xl font-serif mb-4">
+        <h1 className="text-2xl sm:text-5xl sm:leading-14 font-serif mb-4">
           Which Bible Character Are You Most Like?
         </h1>
-        <p className="text-base sm:text-lg mb-2">
+        <p className="text-base sm:text-2xl mb-2">
           Discover the ancient power hidden within your soul.
         </p>
         <p className="text-sm sm:text-base mb-4">
           Unlock your God-given Abundance Blueprint in just 7 simple questions.
         </p>
-        <p className="text-xs mb-6">Over 10,000 lives transformed. Now it’s your turn.</p>
+        <p className="text-xm mb-6">Over 10,000 lives transformed. Now it’s your turn.</p>
         <button
           onClick={() => setStep('gender')}
-          className="bg-yellow-500 hover:bg-yellow-600 text-black font-semibold py-3 px-6 rounded-full shadow-md transition text-sm sm:text-base"
+          className="bg-yellow-500 cursor-pointer hover:bg-yellow-600 text-black font-semibold py-3 px-6 rounded-full shadow-md transition text-sm sm:text-base"
         >
           Start the Quiz Now - It’s Free
         </button>
@@ -364,17 +364,54 @@ export default function AstroQuizPage() {
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ duration: 0.8 }}
-        className="text-center px-4"
-      >
-        <h2 className="text-2xl sm:text-3xl font-serif mb-4">Unlock Your Divine Destiny 💫</h2>
-        <p className="text-white/80 mb-4 text-sm sm:text-base">
-          Redirecting you to your personalized blessing in 60 seconds...
-        </p>
+        className="text-center px-4" >
+        <div className="min-h-screen flex items-center justify-center rounded-2xl bg-gradient-to-br from-purple-900 via-indigo-900 to-black px-12 py-12">
+  <div className="max-w-2xl text-white text-center space-y-6">
+    <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
+      You Embody the Archetype of <span className="text-yellow-400">Moses</span>
+    </h1>
+
+    <p className="text-lg sm:text-xl font-medium">
+      And Your Mission is <span className="text-indigo-400">Divine Power and Purpose</span><br/>
+      You were born to <strong>lead</strong>, <strong>liberate</strong>, and <strong>transform</strong>.
+    </p>
+
+    <p className="text-base sm:text-lg text-gray-200">
+      But you’ve been stuck in the desert far too long...<br/>
+      Moses didn’t start out feeling confident. He questioned his worth. He ran from his calling.
+    </p>
+
+    <p className="text-base sm:text-lg text-gray-200">
+      But once he heard <span className="text-yellow-300">God’s voice</span> and aligned with his <span className="text-indigo-300">divine mission</span>…<br/>
+      <strong>Everything changed.</strong>
+    </p>
+
+    <p className="text-base sm:text-lg text-gray-200">
+      Your brain holds the <strong>same manifestation code</strong> Moses used…<br/>
+      To part the Red Sea and lead his people to abundance.
+    </p>
+
+    <p className="text-base sm:text-lg text-gray-300">
+      A recent <strong>neuroscientific breakthrough</strong> has finally decoded it.<br/>
+      It can activate the exact part of your brain Moses used…<br/>
+      To hear divine guidance and attract miraculous provision.
+    </p>
+
+    <p className="text-base sm:text-lg text-indigo-200">
+      This is the moment your soul has chosen to discover what it is…<br/>
+      So you can fulfil your Divine Calling from God.
+    </p>
+
+    <a href='https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219 ' className="mt-6 px-8 py-4 bg-yellow-400 text-black font-bold rounded-full shadow-lg hover:bg-yellow-300 transition duration-300 text-lg">
+      Reveal the Moses Wealth Code Breakthrough Now!
+    </a>
+  </div>
+</div>
         <a
           href={
             gender === 'male'
-              ? 'https://your-male-product.com'
-              : 'https://your-female-product.com'
+              ? 'https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219'
+              : 'https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219'
           }
           className="underline text-yellow-300 text-sm"
         >
