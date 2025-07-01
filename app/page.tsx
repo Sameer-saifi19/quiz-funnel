@@ -359,67 +359,122 @@ export default function AstroQuizPage() {
   );
 
   const renderProduct = () => (
-    <Overlay>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="text-center px-4" >
-        <div className="min-h-screen flex items-center justify-center rounded-2xl bg-gradient-to-br from-purple-900 via-indigo-900 to-black px-12 py-12">
-  <div className="max-w-2xl text-white text-center space-y-6">
-    <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
-      You Embody the Archetype of <span className="text-yellow-400">Moses</span>
+  <Overlay>
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      transition={{ duration: 0.8 }}
+      className="text-center px-4"
+    >
+      <div className="min-h-screen flex items-center justify-center rounded-2xl bg-gradient-to-br from-purple-900 via-indigo-900 to-black px-6 sm:px-12 py-12">
+        <div className="max-w-2xl text-white text-center space-y-6">
+          {gender === 'male' ? (
+            <>
+              <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
+                You Embody the Archetype of <span className="text-yellow-400">Moses</span>
+              </h1>
+              <p className="text-lg sm:text-xl font-medium">
+                And Your Mission is <span className="text-indigo-400">Divine Power and Purpose</span><br />
+                You were born to <strong>lead</strong>, <strong>liberate</strong>, and <strong>transform</strong>.
+              </p>
+              <p className="text-base sm:text-lg text-gray-200">
+                But you’ve been stuck in the desert far too long...<br />
+                Moses didn’t start out feeling confident. He questioned his worth. He ran from his calling.
+              </p>
+              <p className="text-base sm:text-lg text-gray-200">
+                But once he heard <span className="text-yellow-300">God’s voice</span> and aligned with his <span className="text-indigo-300">divine mission</span>…<br />
+                <strong>Everything changed.</strong>
+              </p>
+              <p className="text-base sm:text-lg text-gray-200">
+                Your brain holds the <strong>same manifestation code</strong> Moses used…<br />
+                To part the Red Sea and lead his people to abundance.
+              </p>
+              <p className="text-base sm:text-lg text-gray-300">
+                A recent <strong>neuroscientific breakthrough</strong> has finally decoded it.<br />
+                It can activate the exact part of your brain Moses used…<br />
+                To hear divine guidance and attract miraculous provision.
+              </p>
+              <p className="text-base sm:text-lg text-indigo-200">
+                This is the moment your soul has chosen to discover what it is…<br />
+                So you can fulfil your Divine Calling from God.
+              </p>
+              <a
+                href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+                className="mt-6 px-8 py-4 bg-yellow-400 text-black font-bold rounded-full shadow-lg hover:bg-yellow-300 transition duration-300 text-lg"
+              >
+                Reveal the Moses Wealth Code Breakthrough Now!
+              </a>
+            </>
+          ) : (
+            <>
+              <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-pink-200 to-rose-300 px-6 py-12">
+  <div className="max-w-2xl text-center space-y-6 text-gray-800">
+    
+    <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight text-rose-700">
+      You Embody the Archetype of <span className="text-pink-600">Zipporah</span>
     </h1>
 
-    <p className="text-lg sm:text-xl font-medium">
-      And Your Mission is <span className="text-indigo-400">Divine Power and Purpose</span><br/>
-      You were born to <strong>lead</strong>, <strong>liberate</strong>, and <strong>transform</strong>.
+    <p className="text-lg sm:text-xl font-medium text-rose-800">
+      The Sacred Feminine Partner of Divine Legacy
     </p>
 
-    <p className="text-base sm:text-lg text-gray-200">
-      But you’ve been stuck in the desert far too long...<br/>
-      Moses didn’t start out feeling confident. He questioned his worth. He ran from his calling.
+    <p className="text-base sm:text-lg">
+      While Moses walked with God,<br/>
+      <strong className="text-rose-600">Zipporah walked beside him in faith.</strong>
     </p>
 
-    <p className="text-base sm:text-lg text-gray-200">
-      But once he heard <span className="text-yellow-300">God’s voice</span> and aligned with his <span className="text-indigo-300">divine mission</span>…<br/>
-      <strong>Everything changed.</strong>
+    <p className="text-base sm:text-lg text-gray-700">
+      As Moses’ wife, Zipporah’s role was vital in fulfilling divine destiny…<br/>
+      Often behind the scenes, but never out of alignment.
     </p>
 
-    <p className="text-base sm:text-lg text-gray-200">
-      Your brain holds the <strong>same manifestation code</strong> Moses used…<br/>
+    <p className="text-base sm:text-lg text-gray-700">
+      And now is the time to step into the role God created for you.
+    </p>
+
+    <p className="text-base sm:text-lg text-gray-700">
+      There is a specific, sacred manifestation code Moses used…<br/>
       To part the Red Sea and lead his people to abundance.
     </p>
 
-    <p className="text-base sm:text-lg text-gray-300">
-      A recent <strong>neuroscientific breakthrough</strong> has finally decoded it.<br/>
+    <p className="text-base sm:text-lg text-gray-700">
+      A recent <span className="text-pink-700 font-semibold">neuroscientific breakthrough</span> has finally decoded it.<br/>
       It can activate the exact part of your brain Moses used…<br/>
       To hear divine guidance and attract miraculous provision.
     </p>
 
-    <p className="text-base sm:text-lg text-indigo-200">
-      This is the moment your soul has chosen to discover what it is…<br/>
-      So you can fulfil your Divine Calling from God.
+    <p className="text-base sm:text-lg text-gray-700">
+      This powerful breakthrough isn’t just for ancient prophets…<br/>
+      It’s also for women ready to step into their full spiritual inheritance.
     </p>
 
-    <a href='https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219 ' className="mt-6 px-8 py-4 bg-yellow-400 text-black font-bold rounded-full shadow-lg hover:bg-yellow-300 transition duration-300 text-lg">
+    <p className="text-base sm:text-lg text-rose-800 font-medium">
+      This is the moment your soul has chosen to discover what it is…<br/>
+      So you can fulfil your <span className="underline decoration-rose-500 font-semibold">Divine Calling from God</span>.
+    </p>
+
+    <button className="mt-6 px-8 py-4 bg-pink-600 text-white font-semibold rounded-full shadow-lg hover:bg-pink-500 transition duration-300 text-lg">
       Reveal the Moses Wealth Code Breakthrough Now!
-    </a>
+    </button>
+
   </div>
 </div>
-        <a
-          href={
-            gender === 'male'
-              ? 'https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219'
-              : 'https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219'
-          }
-          className="underline text-yellow-300 text-sm"
-        >
-          Click here if not redirected
-        </a>
-      </motion.div>
-    </Overlay>
-  );
+
+            </>
+          )}
+
+          <a
+            href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+            className="underline text-yellow-300 text-sm block mt-4"
+          >
+            Click here if not redirected
+          </a>
+        </div>
+      </div>
+    </motion.div>
+  </Overlay>
+);
+
 
   if (step === 'landing') return renderLanding();
   if (step === 'gender') return renderGender();
