@@ -14,6 +14,17 @@ export default function AstroQuizPage() {
   const email = watch('email');
   const phone = watch('phone');
 
+useEffect(() => {
+  if (typeof window !== 'undefined' && performance?.getEntriesByType) {
+    const navEntries = performance.getEntriesByType('navigation');
+    const isHardReload = navEntries.length && (navEntries[0] as PerformanceNavigationTiming).type === 'reload';
+    if (isHardReload) {
+      localStorage.removeItem('astroQuizState');
+    }
+  }
+}, []);
+
+
   const sharedQuestions = [
     'Which of these life paths feels most like yours?',
     'How do you handle divine nudges or dreams that won’t go away?',
