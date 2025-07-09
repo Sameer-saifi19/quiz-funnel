@@ -200,7 +200,7 @@ export default function AstroQuizPage() {
         </div>
       )}
 
-      <main className="relative z-10 flex-grow flex  justify-center px-4 sm:px-6 text-white">
+      <main className="relative z-10 flex-grow flex justify-center px-4 sm:px-6 text-white">
         {children}
       </main>
     </div>
@@ -257,13 +257,16 @@ export default function AstroQuizPage() {
 
   const renderGender = () => (
     <Overlay backgroundImage="QP1.png">
-      <motion.div
+       <div className="flex items-center justify-center w-full h-full">
+        <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-white/10 p-6 sm:p-8 rounded-2xl w-full max-w-md border border-white/20 shadow-xl text-center"
+        className="bg-[rgba(255,255,255,0.42)] p-6 sm:p-8 rounded-4xl w-full max-w-md border border-white/20 shadow-xl text-center"
       >
-        <h2 className="font-serif text-xl sm:text-2xl mb-4">Are you Male or Female?</h2>
+        <div className='bg-[url(/Box1.png)] bg-center rounded-xl  '>
+          <h2 className="font-text-xl tracking-wider sm:text-3xl py-2 font-bebas mb-4">Are you Male or Female?</h2>
+        </div>
         <div className="space-y-3">
           <button
             onClick={() => {
@@ -271,7 +274,7 @@ export default function AstroQuizPage() {
               setAnswers([]);
               setStep('male-0');
             }}
-            className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl text-sm sm:text-base"
+            className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl"
           >
             Male
           </button>
@@ -281,12 +284,13 @@ export default function AstroQuizPage() {
               setAnswers([]);
               setStep('female-0');
             }}
-            className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl text-sm sm:text-base"
+            className="w-full py-3 px-4 border dark-brown text-left font-dmSans font-bold border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl"
           >
             Female
           </button>
         </div>
       </motion.div>
+      </div>
     </Overlay>
   );
 
