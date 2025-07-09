@@ -300,7 +300,7 @@ export default function AstroQuizPage() {
     const options = gender ? optionsByGender[gender][index] : [];
 
     return (
-      <Overlay>
+      <Overlay backgroundImage="QP2.png">
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
