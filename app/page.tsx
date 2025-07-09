@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -10,19 +11,17 @@ export default function AstroQuizPage() {
   const [answers, setAnswers] = useState<string[]>([]);
 
   const { register, handleSubmit, watch } = useForm<{ name: string; email: string; phone: string }>();
-  const name = watch('name');
-  const email = watch('email');
-  const phone = watch('phone');
 
-useEffect(() => {
-  if (typeof window !== 'undefined' && performance?.getEntriesByType) {
-    const navEntries = performance.getEntriesByType('navigation');
-    const isHardReload = navEntries.length && (navEntries[0] as PerformanceNavigationTiming).type === 'reload';
-    if (isHardReload) {
-      localStorage.removeItem('astroQuizState');
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && performance?.getEntriesByType) {
+      const navEntries = performance.getEntriesByType('navigation');
+      const isHardReload = navEntries.length && (navEntries[0] as PerformanceNavigationTiming).type === 'reload';
+      if (isHardReload) {
+        localStorage.removeItem('astroQuizState');
+      }
     }
-  }
-}, []);
+  }, []);
 
 
   const sharedQuestions = [
@@ -74,7 +73,7 @@ useEffect(() => {
       ]
     ],
     female: [
-     [
+      [
         'I’ve supported someone else’s calling while honoring my own strength.',
         'I’ve made quiet sacrifices few will ever know — but God sees.',
         'I’ve protected my family or faith with bold decisions.',
@@ -184,16 +183,10 @@ useEffect(() => {
     }, 60000);
   };
 
-  const backgroundWrapperStyle = {
-    backgroundImage: "url('/bg.jpg')",
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  };
-
-  const Overlay: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-    <div className="min-h-screen flex flex-col justify-between" style={backgroundWrapperStyle}>
+  const Overlay: React.FC<{ children: React.ReactNode; backgroundImage: string }> = ({ children, backgroundImage }) => (
+    <div className="min-h-screen flex flex-col justify-between" style={{backgroundImage:  `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
       <header className="relative z-10 p-4 sm:p-6 text-white text-lg sm:text-xl font-bold">
-        📖 Bible Identity Quiz
+        <Image width={150} height={150} src={"Logo1.png"} alt='Logo'></Image>
       </header>
 
       {isQuestionStep && (
@@ -207,51 +200,68 @@ useEffect(() => {
         </div>
       )}
 
-      <main className="relative z-10 flex-grow flex items-center justify-center px-4 sm:px-6 text-white">
+      <main className="relative z-10 flex-grow flex  justify-center px-4 sm:px-6 text-white">
         {children}
       </main>
-
-      <footer className="relative z-10 p-4 text-center text-xs sm:text-sm text-white bg-black bg-opacity-30">
-        © 2025 Accelevate. All rights reserved.
-      </footer>
     </div>
   );
 
   const renderLanding = () => (
-    <Overlay>
+    <Overlay backgroundImage="LP1.png">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
-        className="text-center max-w-3xl mx-auto px-4"
+        className="text-center max-w-4xl mx-auto px-4"
       >
-        <h1 className="text-2xl sm:text-5xl sm:leading-14 font-serif mb-4">
-          Which Bible Character Are You Most Like?
-        </h1>
-        <p className="text-base sm:text-2xl mb-2">
-          Discover the ancient power hidden within your soul.
-        </p>
-        <p className="text-sm sm:text-base mb-4">
+        <motion.div className='flex flex-col w-full gap-4'>
+
+          <motion.h1  className="text-2xl primary-color sm:text-6xl uppercase font-bebas text-left sm:leading-14 mb-4">
+            which
+          </motion.h1>
+
+          <motion.h1 className="text-2xl primary-color text- sm:text-9xl font-bebas uppercase sm:leading-14 mb-4">
+            Bible Character
+          </motion.h1>
+
+          <motion.h1 className="text-2xl primary-color text- sm:text-6xl uppercase sm:leading-14 font-bebas text-right mb-4">
+            Are You Most Like?
+          </motion.h1>
+
+        </motion.div>
+        
+        <motion.div className='flex flex-col gap-1 mt-4 mb-6' >
+        <p className="text-xm primary-color font-dmSans sm:text-2xl">
           Unlock your God-given Abundance Blueprint in just 7 simple questions.
         </p>
-        <p className="text-xm mb-6">Over 10,000 lives transformed. Now it’s your turn.</p>
-        <button
+        <p className="text-xm primary-color font-dmSans sm:text-2xl">Over 10,000 lives transformed.</p>
+        <p className="text-xm primary-color font-dmSans sm:text-2xl">Now it’s your turn.</p>
+        </motion.div>
+
+        <motion.button
+       initial={{ opacity: 0, scale: 0 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{
+                duration: 0.4,
+                scale: { type: "spring", visualDuration: 0.2, bounce: 0.1 },
+            }}
+
           onClick={() => setStep('gender')}
           className="bg-yellow-500 cursor-pointer hover:bg-yellow-600 text-black font-semibold py-3 px-6 rounded-full shadow-md transition text-sm sm:text-base"
         >
           Start the Quiz Now - It’s Free
-        </button>
+        </motion.button>
       </motion.div>
     </Overlay>
   );
 
   const renderGender = () => (
-    <Overlay>
+    <Overlay backgroundImage="QP1.png">
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-white/10 backdrop-blur-xl p-6 sm:p-8 rounded-2xl w-full max-w-md border border-white/20 shadow-xl text-center"
+        className="bg-white/10 p-6 sm:p-8 rounded-2xl w-full max-w-md border border-white/20 shadow-xl text-center"
       >
         <h2 className="font-serif text-xl sm:text-2xl mb-4">Are you Male or Female?</h2>
         <div className="space-y-3">
@@ -299,11 +309,10 @@ useEffect(() => {
               <button
                 key={opt}
                 onClick={() => handleSelect(opt)}
-                className={`w-full py-3 px-4 border rounded-xl transition text-sm sm:text-base ${
-                  answers[index] === opt
-                    ? 'bg-yellow-500 text-black font-semibold'
-                    : 'border-white/30 hover:bg-white/10'
-                }`}
+                className={`w-full py-3 px-4 border rounded-xl transition text-sm sm:text-base ${answers[index] === opt
+                  ? 'bg-yellow-500 text-black font-semibold'
+                  : 'border-white/30 hover:bg-white/10'
+                  }`}
               >
                 {opt}
               </button>
@@ -352,7 +361,11 @@ useEffect(() => {
 
         <button
           type="submit"
-          disabled={!name || !email || !phone}
+          disabled={
+            !watch('name') ||
+            !watch('email') ||
+            !watch('phone')
+          }
           className="w-full py-3 px-4 bg-yellow-500 hover:bg-yellow-600 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
         >
           See My Result
@@ -370,121 +383,121 @@ useEffect(() => {
   );
 
   const renderProduct = () => (
-  <Overlay>
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      className="text-center px-4"
-    >
-      <div className="min-h-screen flex items-center justify-center rounded-2xl bg-gradient-to-br from-purple-900 via-indigo-900 to-black px-6 sm:px-12 py-12">
-        <div className="max-w-2xl text-white text-center space-y-6">
-          {gender === 'male' ? (
-            <>
-              <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
-                You Embody the Archetype of <span className="text-yellow-400">Moses</span>
-              </h1>
-              <p className="text-lg sm:text-xl font-medium">
-                And Your Mission is <span className="text-indigo-400">Divine Power and Purpose</span><br />
-                You were born to <strong>lead</strong>, <strong>liberate</strong>, and <strong>transform</strong>.
-              </p>
-              <p className="text-base sm:text-lg text-gray-200">
-                But you’ve been stuck in the desert far too long...<br />
-                Moses didn’t start out feeling confident. He questioned his worth. He ran from his calling.
-              </p>
-              <p className="text-base sm:text-lg text-gray-200">
-                But once he heard <span className="text-yellow-300">God’s voice</span> and aligned with his <span className="text-indigo-300">divine mission</span>…<br />
-                <strong>Everything changed.</strong>
-              </p>
-              <p className="text-base sm:text-lg text-gray-200">
-                Your brain holds the <strong>same manifestation code</strong> Moses used…<br />
-                To part the Red Sea and lead his people to abundance.
-              </p>
-              <p className="text-base sm:text-lg text-gray-300">
-                A recent <strong>neuroscientific breakthrough</strong> has finally decoded it.<br />
-                It can activate the exact part of your brain Moses used…<br />
-                To hear divine guidance and attract miraculous provision.
-              </p>
-              <p className="text-base sm:text-lg text-indigo-200">
-                This is the moment your soul has chosen to discover what it is…<br />
-                So you can fulfil your Divine Calling from God.
-              </p>
-              <a
-                href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
-                className="mt-6 px-8 py-4 bg-yellow-400 text-black font-bold rounded-full shadow-lg hover:bg-yellow-300 transition duration-300 text-lg"
-              >
-                Reveal the Moses Wealth Code Breakthrough Now!
-              </a>
-            </>
-          ) : (
-            <>
-              <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-pink-200 to-rose-300 px-6 py-12">
-  <div className="max-w-2xl text-center space-y-6 text-gray-800">
-    
-    <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight text-rose-700">
-      You Embody the Archetype of <span className="text-pink-600">Zipporah</span>
-    </h1>
+    <Overlay>
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
+        className="text-center px-4"
+      >
+        <div className="min-h-screen flex items-center justify-center rounded-2xl bg-gradient-to-br from-purple-900 via-indigo-900 to-black px-6 sm:px-12 py-12">
+          <div className="max-w-2xl text-white text-center space-y-6">
+            {gender === 'male' ? (
+              <>
+                <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
+                  You Embody the Archetype of <span className="text-yellow-400">Moses</span>
+                </h1>
+                <p className="text-lg sm:text-xl font-medium">
+                  And Your Mission is <span className="text-indigo-400">Divine Power and Purpose</span><br />
+                  You were born to <strong>lead</strong>, <strong>liberate</strong>, and <strong>transform</strong>.
+                </p>
+                <p className="text-base sm:text-lg text-gray-200">
+                  But you’ve been stuck in the desert far too long...<br />
+                  Moses didn’t start out feeling confident. He questioned his worth. He ran from his calling.
+                </p>
+                <p className="text-base sm:text-lg text-gray-200">
+                  But once he heard <span className="text-yellow-300">God’s voice</span> and aligned with his <span className="text-indigo-300">divine mission</span>…<br />
+                  <strong>Everything changed.</strong>
+                </p>
+                <p className="text-base sm:text-lg text-gray-200">
+                  Your brain holds the <strong>same manifestation code</strong> Moses used…<br />
+                  To part the Red Sea and lead his people to abundance.
+                </p>
+                <p className="text-base sm:text-lg text-gray-300">
+                  A recent <strong>neuroscientific breakthrough</strong> has finally decoded it.<br />
+                  It can activate the exact part of your brain Moses used…<br />
+                  To hear divine guidance and attract miraculous provision.
+                </p>
+                <p className="text-base sm:text-lg text-indigo-200">
+                  This is the moment your soul has chosen to discover what it is…<br />
+                  So you can fulfil your Divine Calling from God.
+                </p>
+                <a
+                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+                  className="mt-6 px-8 py-4 bg-yellow-400 text-black font-bold rounded-full shadow-lg hover:bg-yellow-300 transition duration-300 text-lg"
+                >
+                  Reveal the Moses Wealth Code Breakthrough Now!
+                </a>
+              </>
+            ) : (
+              <>
+                <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-pink-200 to-rose-300 px-6 py-12">
+                  <div className="max-w-2xl text-center space-y-6 text-gray-800">
 
-    <p className="text-lg sm:text-xl font-medium text-rose-800">
-      The Sacred Feminine Partner of Divine Legacy
-    </p>
+                    <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight text-rose-700">
+                      You Embody the Archetype of <span className="text-pink-600">Zipporah</span>
+                    </h1>
 
-    <p className="text-base sm:text-lg">
-      While Moses walked with God,<br/>
-      <strong className="text-rose-600">Zipporah walked beside him in faith.</strong>
-    </p>
+                    <p className="text-lg sm:text-xl font-medium text-rose-800">
+                      The Sacred Feminine Partner of Divine Legacy
+                    </p>
 
-    <p className="text-base sm:text-lg text-gray-700">
-      As Moses’ wife, Zipporah’s role was vital in fulfilling divine destiny…<br/>
-      Often behind the scenes, but never out of alignment.
-    </p>
+                    <p className="text-base sm:text-lg">
+                      While Moses walked with God,<br />
+                      <strong className="text-rose-600">Zipporah walked beside him in faith.</strong>
+                    </p>
 
-    <p className="text-base sm:text-lg text-gray-700">
-      And now is the time to step into the role God created for you.
-    </p>
+                    <p className="text-base sm:text-lg text-gray-700">
+                      As Moses’ wife, Zipporah’s role was vital in fulfilling divine destiny…<br />
+                      Often behind the scenes, but never out of alignment.
+                    </p>
 
-    <p className="text-base sm:text-lg text-gray-700">
-      There is a specific, sacred manifestation code Moses used…<br/>
-      To part the Red Sea and lead his people to abundance.
-    </p>
+                    <p className="text-base sm:text-lg text-gray-700">
+                      And now is the time to step into the role God created for you.
+                    </p>
 
-    <p className="text-base sm:text-lg text-gray-700">
-      A recent <span className="text-pink-700 font-semibold">neuroscientific breakthrough</span> has finally decoded it.<br/>
-      It can activate the exact part of your brain Moses used…<br/>
-      To hear divine guidance and attract miraculous provision.
-    </p>
+                    <p className="text-base sm:text-lg text-gray-700">
+                      There is a specific, sacred manifestation code Moses used…<br />
+                      To part the Red Sea and lead his people to abundance.
+                    </p>
 
-    <p className="text-base sm:text-lg text-gray-700">
-      This powerful breakthrough isn’t just for ancient prophets…<br/>
-      It’s also for women ready to step into their full spiritual inheritance.
-    </p>
+                    <p className="text-base sm:text-lg text-gray-700">
+                      A recent <span className="text-pink-700 font-semibold">neuroscientific breakthrough</span> has finally decoded it.<br />
+                      It can activate the exact part of your brain Moses used…<br />
+                      To hear divine guidance and attract miraculous provision.
+                    </p>
 
-    <p className="text-base sm:text-lg text-rose-800 font-medium">
-      This is the moment your soul has chosen to discover what it is…<br/>
-      So you can fulfil your <span className="underline decoration-rose-500 font-semibold">Divine Calling from God</span>.
-    </p>
+                    <p className="text-base sm:text-lg text-gray-700">
+                      This powerful breakthrough isn’t just for ancient prophets…<br />
+                      It’s also for women ready to step into their full spiritual inheritance.
+                    </p>
 
-    <button className="mt-6 px-8 py-4 bg-pink-600 text-white font-semibold rounded-full shadow-lg hover:bg-pink-500 transition duration-300 text-lg">
-      Reveal the Moses Wealth Code Breakthrough Now!
-    </button>
+                    <p className="text-base sm:text-lg text-rose-800 font-medium">
+                      This is the moment your soul has chosen to discover what it is…<br />
+                      So you can fulfil your <span className="underline decoration-rose-500 font-semibold">Divine Calling from God</span>.
+                    </p>
 
-  </div>
-</div>
+                    <button className="mt-6 px-8 py-4 bg-pink-600 text-white font-semibold rounded-full shadow-lg hover:bg-pink-500 transition duration-300 text-lg">
+                      Reveal the Moses Wealth Code Breakthrough Now!
+                    </button>
 
-            </>
-          )}
+                  </div>
+                </div>
 
-          <a
-            href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
-            className="underline text-yellow-300 text-sm block mt-4"
-          >
-            Click here if not redirected
-          </a>
+              </>
+            )}
+
+            <a
+              href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+              className="underline text-yellow-300 text-sm block mt-4"
+            >
+              Click here if not redirected
+            </a>
+          </div>
         </div>
-      </div>
-    </motion.div>
-  </Overlay>
-);
+      </motion.div>
+    </Overlay>
+  );
 
 
   if (step === 'landing') return renderLanding();
