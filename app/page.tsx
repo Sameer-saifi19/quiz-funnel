@@ -1,6 +1,6 @@
 'use client';
 
-import { motion } from 'framer-motion';
+import { motion, px } from 'framer-motion';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
@@ -184,21 +184,10 @@ export default function AstroQuizPage() {
   };
 
   const Overlay: React.FC<{ children: React.ReactNode; backgroundImage: string }> = ({ children, backgroundImage }) => (
-    <div className="min-h-screen flex flex-col justify-between" style={{backgroundImage:  `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center'}}>
+    <div className="min-h-screen flex flex-col justify-between" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <header className="relative z-10 p-4 sm:p-6 text-white text-lg sm:text-xl font-bold">
-        <Image width={150} height={150} src={"Logo1.png"} alt='Logo'></Image>
+        <Image width={150} height={150} src={"Logo.png"} alt='Logo'></Image>
       </header>
-
-      {isQuestionStep && (
-        <div className="w-full bg-white/20 h-2">
-          <motion.div
-            className="bg-yellow-400 h-full"
-            initial={false}
-            animate={{ width: `${progressPercentage}%` }}
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
-          />
-        </div>
-      )}
 
       <main className="relative z-10 flex-grow flex justify-center px-4 sm:px-6 text-white">
         {children}
@@ -216,7 +205,7 @@ export default function AstroQuizPage() {
       >
         <motion.div className='flex flex-col w-full gap-4'>
 
-          <motion.h1  className="text-2xl primary-color sm:text-6xl uppercase font-bebas text-left sm:leading-14 mb-4">
+          <motion.h1 className="text-2xl primary-color sm:text-6xl uppercase font-bebas text-left sm:leading-14 mb-4">
             which
           </motion.h1>
 
@@ -229,22 +218,22 @@ export default function AstroQuizPage() {
           </motion.h1>
 
         </motion.div>
-        
+
         <motion.div className='flex flex-col gap-1 mt-4 mb-6' >
-        <p className="text-xm primary-color font-dmSans sm:text-2xl">
-          Unlock your God-given Abundance Blueprint in just 7 simple questions.
-        </p>
-        <p className="text-xm primary-color font-dmSans sm:text-2xl">Over 10,000 lives transformed.</p>
-        <p className="text-xm primary-color font-dmSans sm:text-2xl">Now it’s your turn.</p>
+          <p className="text-xm primary-color font-dmSans sm:text-2xl">
+            Unlock your God-given Abundance Blueprint in just 7 simple questions.
+          </p>
+          <p className="text-xm primary-color font-dmSans sm:text-2xl">Over 10,000 lives transformed.</p>
+          <p className="text-xm primary-color font-dmSans sm:text-2xl">Now it’s your turn.</p>
         </motion.div>
 
         <motion.button
-       initial={{ opacity: 0, scale: 0 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{
-                duration: 0.4,
-                scale: { type: "spring", visualDuration: 0.2, bounce: 0.1 },
-            }}
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.4,
+            scale: { type: "spring", visualDuration: 0.2, bounce: 0.1 },
+          }}
 
           onClick={() => setStep('gender')}
           className="bg-yellow-500 cursor-pointer hover:bg-yellow-600 text-black font-semibold py-3 px-6 rounded-full shadow-md transition text-sm sm:text-base"
@@ -257,39 +246,39 @@ export default function AstroQuizPage() {
 
   const renderGender = () => (
     <Overlay backgroundImage="QP1.png">
-       <div className="flex items-center justify-center w-full h-full">
+      <div className="flex items-center justify-center w-full h-full">
         <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="bg-[rgba(255,255,255,0.42)] p-6 sm:p-8 rounded-4xl w-full max-w-md border border-white/20 shadow-xl text-center"
-      >
-        <div className='bg-[url(/Box1.png)] bg-center rounded-xl  '>
-          <h2 className="font-text-xl tracking-wider sm:text-3xl py-2 font-bebas mb-4">Are you Male or Female?</h2>
-        </div>
-        <div className="space-y-3">
-          <button
-            onClick={() => {
-              setGender('male');
-              setAnswers([]);
-              setStep('male-0');
-            }}
-            className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl"
-          >
-            Male
-          </button>
-          <button
-            onClick={() => {
-              setGender('female');
-              setAnswers([]);
-              setStep('female-0');
-            }}
-            className="w-full py-3 px-4 border dark-brown text-left font-dmSans font-bold border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl"
-          >
-            Female
-          </button>
-        </div>
-      </motion.div>
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-[rgba(255,255,255,0.42)] p-6 sm:p-8 rounded-4xl w-full max-w-md border border-white/20 shadow-xl text-center"
+        >
+          <div className='bg-[url(/Box1.png)] bg-center rounded-xl  '>
+            <h2 className="font-text-xl tracking-wider sm:text-3xl py-2 font-bebas mb-4">Are you Male or Female?</h2>
+          </div>
+          <div className="space-y-3">
+            <button
+              onClick={() => {
+                setGender('male');
+                setAnswers([]);
+                setStep('male-0');
+              }}
+              className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl"
+            >
+              Male
+            </button>
+            <button
+              onClick={() => {
+                setGender('female');
+                setAnswers([]);
+                setStep('female-0');
+              }}
+              className="w-full py-3 px-4 border dark-brown text-left font-dmSans font-bold border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl"
+            >
+              Female
+            </button>
+          </div>
+        </motion.div>
       </div>
     </Overlay>
   );
@@ -301,19 +290,25 @@ export default function AstroQuizPage() {
 
     return (
       <Overlay backgroundImage="QP2.png">
-        <motion.div
+        <div className="flex items-center justify-center w-full h-full">
+
+            <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.5 }}
-          className="bg-white/10 backdrop-blur-xl p-6 sm:p-8 rounded-2xl w-full max-w-md border border-white/20 shadow-xl text-center"
+          className="bg-[rgba(255,255,255,0.42)] p-6 sm:p-8 rounded-4xl w-full max-w-xl border border-white/20 shadow-xl text-center"
         >
-          <h2 className="font-serif text-xl sm:text-2xl mb-4">{question}</h2>
+
+          <div className='bg-[url(/Box1.png)] bg-center rounded-xl  '>
+            <h2 className="font-bebas text-xl sm:text-3xl py-2 mb-4">{question}</h2>
+          </div>
+
           <div className="space-y-3">
             {options.map((opt) => (
               <button
                 key={opt}
                 onClick={() => handleSelect(opt)}
-                className={`w-full py-3 px-4 border rounded-xl transition text-sm sm:text-base ${answers[index] === opt
+                className={`w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl ${answers[index] === opt
                   ? 'bg-yellow-500 text-black font-semibold'
                   : 'border-white/30 hover:bg-white/10'
                   }`}
@@ -330,112 +325,76 @@ export default function AstroQuizPage() {
             )}
           </div>
         </motion.div>
+        </div>
+        
       </Overlay>
     );
   };
 
   const renderInfoForm = () => (
-    <Overlay>
+
+    <div className='bg-[url(/QP2.png)] min-h-screen flex flex-col justify-center items-center '>
+      <header className='absolute top-4 left-4 z-50'>
+        <img src={"Logo.png"} width={150} height={150}></img>
+      </header>
       <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-white/10 backdrop-blur-xl p-6 sm:p-8 rounded-2xl w-full max-w-md border border-white/20 shadow-xl"
+      onSubmit={handleSubmit(onSubmit)}
+      className="bg-[rgba(255,255,255,0.42)] p-6 sm:p-8 rounded-4xl w-full max-w-xl border border-white/20 shadow-xl text-center"
+    >
+      <div className='bg-[url(/Box1.png)] bg-center rounded-xl'>
+        <h2 className="font-bebas text-xl sm:text-3xl py-2 tracking-wider mb-4">Enter Your Info</h2>
+      </div>
+
+      <input
+        type="text"
+        placeholder="Name"
+        {...register('name')}
+        className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4"
+      />
+
+      <input
+        type="email"
+        placeholder="Email"
+        {...register('email')}
+        className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4"
+      />
+
+      <button
+        type="submit"
+        disabled={
+          !watch('name') ||
+          !watch('email')
+        }
+        className="w-full py-3 px-4 bg-yellow-500 hover:bg-yellow-600 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
       >
-        <h2 className="font-serif text-xl sm:text-2xl mb-4 text-center">Enter Your Info</h2>
+        See My Result
+      </button>
 
-        <input
-          type="text"
-          placeholder="Name"
-          {...register('name')}
-          className="w-full mb-3 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white text-sm sm:text-base"
-        />
+      <button
+        onClick={resetQuiz}
+        type="button"
+        className="mt-4 text-white block w-full text-center cursor-pointer text-sm hover:text-yellow-300"
+      >
+        ← Start Over
+      </button>
+    </form>
+    </div>
 
-        <input
-          type="email"
-          placeholder="Email"
-          {...register('email')}
-          className="w-full mb-3 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white text-sm sm:text-base"
-        />
-
-        <input
-          type="tel"
-          placeholder="Phone Number"
-          {...register('phone')}
-          className="w-full mb-6 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white text-sm sm:text-base"
-        />
-
-        <button
-          type="submit"
-          disabled={
-            !watch('name') ||
-            !watch('email') ||
-            !watch('phone')
-          }
-          className="w-full py-3 px-4 bg-yellow-500 hover:bg-yellow-600 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
-        >
-          See My Result
-        </button>
-
-        <button
-          onClick={resetQuiz}
-          type="button"
-          className="mt-4 text-white block w-full text-center cursor-pointer text-sm hover:text-yellow-300"
-        >
-          ← Start Over
-        </button>
-      </form>
-    </Overlay>
   );
 
   const renderProduct = () => (
-    <Overlay>
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ duration: 0.8 }}
-        className="text-center px-4"
-      >
-        <div className="min-h-screen flex items-center justify-center rounded-2xl bg-gradient-to-br from-purple-900 via-indigo-900 to-black px-6 sm:px-12 py-12">
+    <Overlay backgroundImage="Moses1.png">
+      <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }} className="text-center px-4">
+        
+        <div className="min-h-screen flex items-center justify-center rounded-2xl px-6 sm:px-12 py-12">
           <div className="max-w-2xl text-white text-center space-y-6">
             {gender === 'male' ? (
               <>
-                <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
-                  You Embody the Archetype of <span className="text-yellow-400">Moses</span>
-                </h1>
-                <p className="text-lg sm:text-xl font-medium">
-                  And Your Mission is <span className="text-indigo-400">Divine Power and Purpose</span><br />
-                  You were born to <strong>lead</strong>, <strong>liberate</strong>, and <strong>transform</strong>.
-                </p>
-                <p className="text-base sm:text-lg text-gray-200">
-                  But you’ve been stuck in the desert far too long...<br />
-                  Moses didn’t start out feeling confident. He questioned his worth. He ran from his calling.
-                </p>
-                <p className="text-base sm:text-lg text-gray-200">
-                  But once he heard <span className="text-yellow-300">God’s voice</span> and aligned with his <span className="text-indigo-300">divine mission</span>…<br />
-                  <strong>Everything changed.</strong>
-                </p>
-                <p className="text-base sm:text-lg text-gray-200">
-                  Your brain holds the <strong>same manifestation code</strong> Moses used…<br />
-                  To part the Red Sea and lead his people to abundance.
-                </p>
-                <p className="text-base sm:text-lg text-gray-300">
-                  A recent <strong>neuroscientific breakthrough</strong> has finally decoded it.<br />
-                  It can activate the exact part of your brain Moses used…<br />
-                  To hear divine guidance and attract miraculous provision.
-                </p>
-                <p className="text-base sm:text-lg text-indigo-200">
-                  This is the moment your soul has chosen to discover what it is…<br />
-                  So you can fulfil your Divine Calling from God.
-                </p>
-                <a
-                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
-                  className="mt-6 px-8 py-4 bg-yellow-400 text-black font-bold rounded-full shadow-lg hover:bg-yellow-300 transition duration-300 text-lg"
-                >
-                  Reveal the Moses Wealth Code Breakthrough Now!
-                </a>
+                
               </>
             ) : (
               <>
-                <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-pink-200 to-rose-300 px-6 py-12">
+                <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-pink-200 to-rose-300">
                   <div className="max-w-2xl text-center space-y-6 text-gray-800">
 
                     <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight text-rose-700">
