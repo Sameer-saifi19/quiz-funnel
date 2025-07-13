@@ -12,6 +12,7 @@
   --font-bebas: var(--font-bebas);
   --font-dmSans: var(--font-dmSans)
   --font-mono: var(--font-geist-mono);
+  --font-tinos: var(--font-tinos)
 }
 
 @media (prefers-color-scheme: dark) {
@@ -27,6 +28,15 @@
 
 .dark-brown{
   color: #743809;
+}
+
+.azure{
+  color: #82a9c9;
+}
+
+
+.orange{
+  color: #edaf00;
 }
 
 body {

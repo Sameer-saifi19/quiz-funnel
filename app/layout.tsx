@@ -1,10 +1,16 @@
 import type { Metadata } from "next";
-import { Bebas_Neue,DM_Sans, Geist, Geist_Mono } from "next/font/google";
+import { Bebas_Neue,DM_Sans, Geist, Geist_Mono, Tinos } from "next/font/google";
 import "./globals.css";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+});
+
+const tinos = Tinos({
+  weight: ['400', '700'], 
+  variable: "--font-tinos",
+  subsets: ['latin'],
 });
 
 const bebasNeue = Bebas_Neue({
@@ -38,7 +44,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} ${dmSans.variable} antialiased`}
+        className={`${geistSans.variable} ${geistMono.variable} ${bebasNeue.variable} ${dmSans.variable} ${tinos.variable} antialiased`}
       >
         {children}
       </body>
