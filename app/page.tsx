@@ -174,13 +174,13 @@ export default function AstroQuizPage() {
     setStep('product');
     localStorage.removeItem('astroQuizState');
 
-    // setTimeout(() => {
-    //   const redirectUrl =
-    //     gender === 'male'
-    //       ? 'https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219'
-    //       : 'https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219';
-    //   window.location.href = redirectUrl;
-    // }, 60000);
+    setTimeout(() => {
+      const redirectUrl =
+        gender === 'male'
+          ? 'https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219'
+          : 'https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219';
+      window.location.href = redirectUrl;
+    }, 60000);
   };
 
   const Overlay: React.FC<{ children: React.ReactNode; backgroundImage: string }> = ({ children, backgroundImage }) => (
@@ -209,7 +209,7 @@ export default function AstroQuizPage() {
             which
           </motion.h1>
 
-          <motion.h1 className="text-6xl primary-color leading-6 text- sm:text-9xl font-bebas uppercase sm:leading-14 mb-4">
+          <motion.h1 className="text-6xl primary-color leading-6 text- sm:text-9xl font-bebas uppercase sm:leading-20 mb-4">
             Bible Character
           </motion.h1>
 
@@ -353,8 +353,8 @@ export default function AstroQuizPage() {
 <input type="hidden" name="meta_web_form_id" value="931623795" />
 <input type="hidden" name="meta_split_id" value="" />
 <input type="hidden" name="listname" value="awlist6899920" />
-<input type="hidden" name="redirect" value="https://biblecharacterquiz.com/results" id="redirect_aa440fc14656c1e387b8c5b6942dff3c" />
-<input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/results" />
+<input type="hidden" name="redirect" value="https://biblecharacterquiz.com/thank-you/m" id="redirect_aa440fc14656c1e387b8c5b6942dff3c" />
+<input type="hidden" name="meta_redirect_onlist" value="http://localhost:3000/thank-you/m" />
 <input type="hidden" name="meta_adtracking" value="Quiz_Funnel_Sign_Up_Form_(Male)" />
 <input type="hidden" name="meta_message" value="1" />
 <input type="hidden" name="meta_required" value="name,email" />
@@ -406,11 +406,11 @@ export default function AstroQuizPage() {
         </div>
 
 <div className='hidden'>
-<input type="hidden" name="meta_web_form_id" value="36807799" />
+<input type="hidden" name="meta_web_form_id" value="359719133" />
 <input type="hidden" name="meta_split_id" value="" />
-<input type="hidden" name="listname" value="awlist6899920" />
-<input type="hidden" name="redirect" value="https://biblecharacterquiz.com/results-female" id="redirect_cae1bfd88dc067218ddb2f9d7a611f72" />
-<input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/results-female" />
+<input type="hidden" name="listname" value="awlist6899921" />
+<input type="hidden" name="redirect" value="http://localhost:3000/thank-you/f" id="redirect_cae1bfd88dc067218ddb2f9d7a611f72" />
+<input type="hidden" name="meta_redirect_onlist" value="http://localhost:3000/thank-you/f" />
 <input type="hidden" name="meta_adtracking" value="Quiz_Funnel_Sign_Up_Form_(Female)" />
 <input type="hidden" name="meta_message" value="1" />
 <input type="hidden" name="meta_required" value="name,email" />
@@ -419,17 +419,17 @@ export default function AstroQuizPage() {
 
 <input type="hidden" name="meta_tooltip" value="" />
 </div>
-<div id="af-form-36807799" className="af-form"><div id="af-body-36807799" className="af-body af-standards">
+<div id="af-form-359719133" className="af-form"><div id="af-body-359719133" className="af-body af-standards">
 <div className="af-element">
-<label className="previewLabel hidden" htmlFor="awf_field-118218221">Name:</label>
+<label className="previewLabel hidden" htmlFor="awf_field-118219805">Name:</label>
 <div className="af-textWrap">
-<input id="awf_field-118218221" {...register('name')} placeholder='Name' type="text" name="name" className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" tabIndex={500} />
+<input id="awf_field-118219805" {...register('name')} placeholder='Name' type="text" name="name" className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" tabIndex={500} />
 </div>
 <div className="af-clear"></div>
 </div><div className="af-element">
-<label className="previewLabel hidden " htmlFor="awf_field-118218221">Email:</label>
+<label className="previewLabel hidden " htmlFor="awf_field-118219806">Email:</label>
 <div className="af-textWrap">
-  <input className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" id="awf_field-118218221" type="email" tabIndex={501} placeholder='Email' {...register('email')} />
+  <input className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" id="awf_field-118219806" type="email" tabIndex={501} placeholder='Email' {...register('email')} />
 </div><div className="af-clear"></div>
 </div><div className="af-element buttonContainer">
 <input name="submit" className="w-full py-3 px-4 bg-yellow-500 hover:bg-yellow-600 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base" type="submit" value="Submit" tabIndex={502} disabled={
@@ -447,7 +447,7 @@ export default function AstroQuizPage() {
 </div>
 </div>
 </div>
-<div className='hidden'><img src="https://forms.aweber.com/form/displays.htm?id=zGwcDOzsnJw=" />
+<div className='hidden'><img src="https://forms.aweber.com/form/displays.htm?id=zKyc7IycjMzM" />
 </div>
 
 </form>
