@@ -348,25 +348,23 @@ export default function AstroQuizPage() {
               <input type="hidden" name="meta_web_form_id" value="931623795" />
               <input type="hidden" name="meta_split_id" value="" />
               <input type="hidden" name="listname" value="awlist6899920" />
-              <input type="hidden" name="redirect" value="https://biblecharacterquiz.com/thank-you/m" />
-              <input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/thank-you/m" />
+              <input type="hidden" name="redirect" value="https://biblecharacterquiz.com/thank-you/m" id="redirect_e211f13f397e7f6083bde9de1cad9070" />
+              <input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/subscribed" />
               <input type="hidden" name="meta_adtracking" value="Quiz_Funnel_Sign_Up_Form_(Male)" />
               <input type="hidden" name="meta_message" value="1" />
               <input type="hidden" name="meta_required" value="name,email" />
-
-
 
               <input type="hidden" name="meta_tooltip" value="" />
             </div>
             <div id="af-form-931623795" className="af-form"><div id="af-body-931623795" className="af-body af-standards">
               <div className="af-element">
-                <label className="previewLabel hidden" htmlFor="awf_field-118217367">Name:</label>
+                <label className="previewLabel hidden" htmlFor="awf_field-118238004">Name:</label>
                 <div className="af-textWrap">
-                  <input id="awf_field-118217367" {...register('name')} placeholder='Name' type="text" name="name" className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" tabIndex={500} />
+                  <input id="awf_field-118238004" {...register('name')} placeholder='Name' type="text" name="name" className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" tabIndex={500} />
                 </div>
                 <div className="af-clear"></div>
               </div><div className="af-element">
-                <label className="previewLabel hidden " htmlFor="awf_field-118217368">Email:</label>
+                <label className="previewLabel hidden " htmlFor="awf_field-118238005">Email:</label>
                 <div className="af-textWrap">
                   <input className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" id="awf_field-118217368" type="email" tabIndex={501} placeholder='Email' {...register('email')} />
                 </div><div className="af-clear"></div>
@@ -405,7 +403,8 @@ export default function AstroQuizPage() {
             <input type="hidden" name="meta_split_id" value="" />
             <input type="hidden" name="listname" value="awlist6899921" />
             <input type="hidden" name="redirect" value="https://biblecharacterquiz.com/thank-you/f" id="redirect_cae1bfd88dc067218ddb2f9d7a611f72" />
-            <input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/thank-you/f" />
+            <input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/thank-you/f" id="redirect_85b7552b82b4852f233616fba2abf577" />
+            <input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/subscribed" />
             <input type="hidden" name="meta_adtracking" value="Quiz_Funnel_Sign_Up_Form_(Female)" />
             <input type="hidden" name="meta_message" value="1" />
             <input type="hidden" name="meta_required" value="name,email" />
@@ -416,13 +415,13 @@ export default function AstroQuizPage() {
           </div>
           <div id="af-form-359719133" className="af-form"><div id="af-body-359719133" className="af-body af-standards">
             <div className="af-element">
-              <label className="previewLabel hidden" htmlFor="awf_field-118219805">Name:</label>
+              <label className="previewLabel hidden" htmlFor="awf_field-118238026">Name:</label>
               <div className="af-textWrap">
-                <input id="awf_field-118219805" {...register('name')} placeholder='Name' type="text" name="name" className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" tabIndex={500} />
+                <input id="awf_field-118238026" {...register('name')} placeholder='Name' type="text" name="name" className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" tabIndex={500} />
               </div>
               <div className="af-clear"></div>
             </div><div className="af-element">
-              <label className="previewLabel hidden " htmlFor="awf_field-118219806">Email:</label>
+              <label className="previewLabel hidden " htmlFor="awf_field-118238026">Email:</label>
               <div className="af-textWrap">
                 <input className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" id="awf_field-118219806" type="email" tabIndex={501} placeholder='Email' {...register('email')} />
               </div><div className="af-clear"></div>
@@ -581,8 +580,6 @@ export default function AstroQuizPage() {
       </div>
     </motion.div>
   );
-
-
 
 
   if (step === 'landing') return renderLanding();
