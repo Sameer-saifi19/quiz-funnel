@@ -1,6 +1,7 @@
 'use client';
 
 import { motion } from 'framer-motion';
+import Image from 'next/image';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 
@@ -9,10 +10,19 @@ export default function AstroQuizPage() {
   const [gender, setGender] = useState<'male' | 'female' | null>(null);
   const [answers, setAnswers] = useState<string[]>([]);
 
-  const { register, handleSubmit, watch } = useForm<{ name: string; email: string; phone: string }>();
-  const name = watch('name');
-  const email = watch('email');
-  const phone = watch('phone');
+  const { register, watch } = useForm<{ name: string; email: string; phone: string }>();
+
+
+  useEffect(() => {
+    if (typeof window !== 'undefined' && performance?.getEntriesByType) {
+      const navEntries = performance.getEntriesByType('navigation');
+      const isHardReload = navEntries.length && (navEntries[0] as PerformanceNavigationTiming).type === 'reload';
+      if (isHardReload) {
+        localStorage.removeItem('astroQuizState');
+      }
+    }
+  }, []);
+
 
   const sharedQuestions = [
     'Which of these life paths feels most like yours?',
@@ -63,7 +73,7 @@ export default function AstroQuizPage() {
       ]
     ],
     female: [
-     [
+      [
         'I’ve supported someone else’s calling while honoring my own strength.',
         'I’ve made quiet sacrifices few will ever know — but God sees.',
         'I’ve protected my family or faith with bold decisions.',
@@ -104,7 +114,6 @@ export default function AstroQuizPage() {
 
   const isQuestionStep = step.startsWith('male') || step.startsWith('female');
   const currentQuestionIndex = isQuestionStep ? parseInt(step.split('-')[1]) : 0;
-  const progressPercentage = Math.round((currentQuestionIndex / sharedQuestions.length) * 100);
 
   useEffect(() => {
     const saved = localStorage.getItem('astroQuizState');
@@ -149,17 +158,13 @@ export default function AstroQuizPage() {
     localStorage.removeItem('astroQuizState');
   };
 
+
+
+  // eslint-disable-next-line
   const onSubmit = (data: { name: string; email: string; phone: string }) => {
     const formData = new FormData();
     formData.append('name', data.name);
     formData.append('email', data.email);
-    formData.append('phone', data.phone);
-
-    fetch('https://www.aweber.com/scripts/addlead.pl', {
-      method: 'POST',
-      mode: 'no-cors',
-      body: formData,
-    });
 
     setStep('product');
     localStorage.removeItem('astroQuizState');
@@ -173,99 +178,103 @@ export default function AstroQuizPage() {
     }, 60000);
   };
 
-  const backgroundWrapperStyle = {
-    backgroundImage: "url('/bg.jpg')",
-    backgroundSize: 'cover',
-    backgroundPosition: 'center',
-  };
-
-  const Overlay: React.FC<{ children: React.ReactNode }> = ({ children }) => (
-    <div className="min-h-screen flex flex-col justify-between" style={backgroundWrapperStyle}>
+  const Overlay: React.FC<{ children: React.ReactNode; backgroundImage: string }> = ({ children, backgroundImage }) => (
+    <div className="min-h-screen flex flex-col justify-between" style={{ backgroundImage: `url(${backgroundImage})`, backgroundSize: 'cover', backgroundPosition: 'center' }}>
       <header className="relative z-10 p-4 sm:p-6 text-white text-lg sm:text-xl font-bold">
-        📖 Bible Identity Quiz
+        <Image width={150} height={150} className='w-24 h-24' src={"Logo.webp"} alt='Logo'></Image>
       </header>
 
-      {isQuestionStep && (
-        <div className="w-full bg-white/20 h-2">
-          <motion.div
-            className="bg-yellow-400 h-full"
-            initial={false}
-            animate={{ width: `${progressPercentage}%` }}
-            transition={{ duration: 0.6, ease: 'easeInOut' }}
-          />
-        </div>
-      )}
-
-      <main className="relative z-10 flex-grow flex items-center justify-center px-4 sm:px-6 text-white">
+      <main className="relative z-10 flex-grow flex justify-center px-4 sm:px-6 text-white">
         {children}
       </main>
-
-      <footer className="relative z-10 p-4 text-center text-xs sm:text-sm text-white bg-black bg-opacity-30">
-        © 2025 Accelevate. All rights reserved.
-      </footer>
     </div>
   );
 
   const renderLanding = () => (
-    <Overlay>
+    <Overlay backgroundImage="LP1.webp">
       <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 1 }}
-        className="text-center max-w-3xl mx-auto px-4"
+        className="flex flex-col mt-14 items-center mx-auto px-4"
       >
-        <h1 className="text-2xl sm:text-5xl sm:leading-14 font-serif mb-4">
-          Which Bible Character Are You Most Like?
-        </h1>
-        <p className="text-base sm:text-2xl mb-2">
-          Discover the ancient power hidden within your soul.
-        </p>
-        <p className="text-sm sm:text-base mb-4">
-          Unlock your God-given Abundance Blueprint in just 7 simple questions.
-        </p>
-        <p className="text-xm mb-6">Over 10,000 lives transformed. Now it’s your turn.</p>
-        <button
+        <motion.div className='flex flex-col '>
+
+          <motion.h1 className="text-4xl primary-color sm:text-6xl uppercase font-bebas text-left sm:leading-14 mb-4">
+            which
+          </motion.h1>
+
+          <motion.h1 className="text-6xl primary-color leading-6 text- sm:text-9xl font-bebas uppercase sm:leading-20 mb-4">
+            Bible Character
+          </motion.h1>
+
+          <motion.h1 className="text-4xl primary-color text-right text- sm:text-6xl uppercase sm:leading-14 font-bebas  mb-4">
+            Are You Most Like?
+          </motion.h1>
+
+        </motion.div>
+
+        <motion.div className='flex flex-col justify-center items-center' >
+          <p className="text-lg primary-color font-dmSans mb-2 text-center sm:text-2xl">
+            Unlock your God-given Abundance Blueprint in just 7 simple questions.
+          </p>
+          <p className="text-lg mb-1 primary-color font-dmSans sm:text-2xl">Over 10,000 lives transformed.</p>
+          <p className="text-xm mb-8 primary-color font-dmSans sm:text-2xl">Now it’s your turn.</p>
+        </motion.div>
+
+        <motion.button
+          initial={{ opacity: 0, scale: 0 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{
+            duration: 0.4,
+            scale: { type: "spring", visualDuration: 0.2, bounce: 0.1 },
+          }}
+
           onClick={() => setStep('gender')}
           className="bg-yellow-500 cursor-pointer hover:bg-yellow-600 text-black font-semibold py-3 px-6 rounded-full shadow-md transition text-sm sm:text-base"
         >
           Start the Quiz Now - It’s Free
-        </button>
+        </motion.button>
       </motion.div>
     </Overlay>
   );
 
   const renderGender = () => (
-    <Overlay>
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.5 }}
-        className="bg-white/10 backdrop-blur-xl p-6 sm:p-8 rounded-2xl w-full max-w-md border border-white/20 shadow-xl text-center"
-      >
-        <h2 className="font-serif text-xl sm:text-2xl mb-4">Are you Male or Female?</h2>
-        <div className="space-y-3">
-          <button
-            onClick={() => {
-              setGender('male');
-              setAnswers([]);
-              setStep('male-0');
-            }}
-            className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl text-sm sm:text-base"
-          >
-            Male
-          </button>
-          <button
-            onClick={() => {
-              setGender('female');
-              setAnswers([]);
-              setStep('female-0');
-            }}
-            className="w-full py-3 px-4 border border-white/30 hover:bg-white/10 rounded-xl text-sm sm:text-base"
-          >
-            Female
-          </button>
-        </div>
-      </motion.div>
+    <Overlay backgroundImage="QP1.webp">
+      <div className="flex items-center mt-28 justify-center w-full h-full">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.5 }}
+          className="bg-[rgba(255,255,255,0.42)] p-6 sm:p-8 rounded-4xl w-full max-w-md border border-white/20 shadow-xl text-center"
+        >
+          <div className='bg-[url(/Box1.webp)] bg-center rounded-xl  '>
+            <h2 className="font-text-xl tracking-wider sm:text-3xl py-2 font-bebas mb-4">Are you Male or Female?</h2>
+          </div>
+          <div className="space-y-3">
+            <button
+              onClick={() => {
+                setGender('male');
+                setAnswers([]);
+                setStep('male-0');
+              }}
+              className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl"
+            >
+              Male
+            </button>
+            <button
+              onClick={() => {
+                setGender('female');
+                setAnswers([]);
+                setStep('female-0');
+              }}
+              className="w-full py-3 px-4 border dark-brown text-left font-dmSans font-bold border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl"
+            >
+              Female
+            </button>
+          </div>
+        </motion.div>
+      </div>
     </Overlay>
   );
 
@@ -275,205 +284,297 @@ export default function AstroQuizPage() {
     const options = gender ? optionsByGender[gender][index] : [];
 
     return (
-      <Overlay>
-        <motion.div
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5 }}
-          className="bg-white/10 backdrop-blur-xl p-6 sm:p-8 rounded-2xl w-full max-w-md border border-white/20 shadow-xl text-center"
-        >
-          <h2 className="font-serif text-xl sm:text-2xl mb-4">{question}</h2>
-          <div className="space-y-3">
-            {options.map((opt) => (
-              <button
-                key={opt}
-                onClick={() => handleSelect(opt)}
-                className={`w-full py-3 px-4 border rounded-xl transition text-sm sm:text-base ${
-                  answers[index] === opt
+      <Overlay backgroundImage="QP2.webp">
+        <div className="flex items-center mt-8 justify-center w-full h-full">
+
+          <motion.div
+            initial={{ opacity: 0, y: 40 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="bg-[rgba(255,255,255,0.42)] p-6 sm:p-8 rounded-4xl w-full max-w-xl border border-white/20 shadow-xl text-center"
+          >
+
+            <div className='bg-[url(/Box1.webp)] bg-center rounded-xl  '>
+              <h2 className="font-bebas text-xl sm:text-3xl py-2 mb-4">{question}</h2>
+            </div>
+
+            <div className="space-y-3">
+              {options.map((opt) => (
+                <button
+                  key={opt}
+                  onClick={() => handleSelect(opt)}
+                  className={`w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl ${answers[index] === opt
                     ? 'bg-yellow-500 text-black font-semibold'
                     : 'border-white/30 hover:bg-white/10'
-                }`}
-              >
-                {opt}
-              </button>
-            ))}
-          </div>
-          <div className="flex justify-between mt-6 text-xs text-white">
-            {index > 0 && (
-              <button onClick={goBack} className="text-sm text-white cursor-pointer hover:text-yellow-300">
-                ← Go Back
-              </button>
-            )}
-          </div>
-        </motion.div>
+                    }`}
+                >
+                  {opt}
+                </button>
+              ))}
+            </div>
+            <div className="flex justify-between mt-6 text-xs text-white">
+              {index > 0 && (
+                <button onClick={goBack} className="text-sm text-white cursor-pointer hover:text-yellow-300">
+                  ← Go Back
+                </button>
+              )}
+            </div>
+          </motion.div>
+        </div>
+
       </Overlay>
     );
   };
 
   const renderInfoForm = () => (
-    <Overlay>
-      <form
-        onSubmit={handleSubmit(onSubmit)}
-        className="bg-white/10 backdrop-blur-xl p-6 sm:p-8 rounded-2xl w-full max-w-md border border-white/20 shadow-xl"
-      >
-        <h2 className="font-serif text-xl sm:text-2xl mb-4 text-center">Enter Your Info</h2>
 
-        <input
-          type="text"
-          placeholder="Name"
-          {...register('name')}
-          className="w-full mb-3 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white text-sm sm:text-base"
-        />
+    <div className='bg-[url(/QP2.webp)] px-4 min-h-screen flex flex-col justify-center items-center '>
+      <header className='absolute top-4 left-4 z-50'>
+        <Image alt='logo' src={"Logo.webp"} className='h-24 w-24' width={150} height={150}></Image>
+      </header>
 
-        <input
-          type="email"
-          placeholder="Email"
-          {...register('email')}
-          className="w-full mb-3 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white text-sm sm:text-base"
-        />
+      {/* Form API Call  */}
 
-        <input
-          type="tel"
-          placeholder="Phone Number"
-          {...register('phone')}
-          className="w-full mb-6 px-4 py-2 rounded-xl bg-white/10 border border-white/30 text-white text-sm sm:text-base"
-        />
+      {gender === 'male' ? (
+        <>
 
-        <button
-          type="submit"
-          disabled={!name || !email || !phone}
-          className="w-full py-3 px-4 bg-yellow-500 hover:bg-yellow-600 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base"
-        >
-          See My Result
-        </button>
+          <form method="post" className="bg-[rgba(255,255,255,0.42)] p-6 sm:p-8 rounded-4xl w-full max-w-xl border border-white/20 shadow-xl text-center" acceptCharset="UTF-8" action="https://www.aweber.com/scripts/addlead.pl" >
 
-        <button
-          onClick={resetQuiz}
-          type="button"
-          className="mt-4 text-white block w-full text-center cursor-pointer text-sm hover:text-yellow-300"
-        >
-          ← Start Over
-        </button>
-      </form>
-    </Overlay>
+            <div className='bg-[url(/Box1.webp)] bg-center rounded-xl'>
+              <h2 className="font-bebas text-xl sm:text-3xl py-2 tracking-wider mb-4">Enter Your Info</h2>
+            </div>
+
+            <div className='hidden'>
+              <input type="hidden" name="meta_web_form_id" value="931623795" />
+              <input type="hidden" name="meta_split_id" value="" />
+              <input type="hidden" name="listname" value="awlist6899920" />
+              <input type="hidden" name="redirect" value="https://biblecharacterquiz.com/thank-you/m" id="redirect_aa440fc14656c1e387b8c5b6942dff3c" />
+              <input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/thank-you/m" />
+              <input type="hidden" name="meta_adtracking" value="Quiz_Funnel_Sign_Up_Form_(Male)" />
+              <input type="hidden" name="meta_message" value="1" />
+              <input type="hidden" name="meta_required" value="name,email" />
+
+
+
+              <input type="hidden" name="meta_tooltip" value="" />
+            </div>
+            <div id="af-form-931623795" className="af-form"><div id="af-body-931623795" className="af-body af-standards">
+              <div className="af-element">
+                <label className="previewLabel hidden" htmlFor="awf_field-118217367">Name:</label>
+                <div className="af-textWrap">
+                  <input id="awf_field-118217367" {...register('name')} placeholder='Name' type="text" name="name" className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" tabIndex={500} />
+                </div>
+                <div className="af-clear"></div>
+              </div><div className="af-element">
+                <label className="previewLabel hidden " htmlFor="awf_field-118217368">Email:</label>
+                <div className="af-textWrap">
+                  <input className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" id="awf_field-118217368" type="email" tabIndex={501} placeholder='Email' {...register('email')} />
+                </div><div className="af-clear"></div>
+              </div><div className="af-element buttonContainer">
+                <input name="submit" className="w-full py-3 px-4 bg-yellow-500 hover:bg-yellow-600 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base" type="submit" value="Submit" tabIndex={502} disabled={
+                  !watch('name') ||
+                  !watch('email')
+                } />
+                <button
+                  onClick={resetQuiz}
+                  type="button"
+                  className="mt-4 text-white block w-full text-center cursor-pointer text-sm hover:text-yellow-300"
+                >
+                  ← Start Over
+                </button>
+                <div className="af-clear"></div>
+              </div>
+            </div>
+            </div>
+            <div className='hidden'><Image width={0} height={0} src="https://forms.aweber.com/form/displays.htm?id=nMyMbEzM7Jys" alt="logo" /></div>
+
+          </form>
+
+
+        </>
+      ) : (<>
+
+        <form method="post" className="bg-[rgba(255,255,255,0.42)] p-6 sm:p-8 rounded-4xl w-full max-w-xl border border-white/20 shadow-xl text-center" acceptCharset="UTF-8" action="https://www.aweber.com/scripts/addlead.pl" >
+
+          <div className='bg-[url(/Box1.webp)] bg-center rounded-xl'>
+            <h2 className="font-bebas text-xl sm:text-3xl py-2 tracking-wider mb-4">Enter Your Info</h2>
+          </div>
+
+          <div className='hidden'>
+            <input type="hidden" name="meta_web_form_id" value="359719133" />
+            <input type="hidden" name="meta_split_id" value="" />
+            <input type="hidden" name="listname" value="awlist6899921" />
+            <input type="hidden" name="redirect" value="https://biblecharacterquiz.com/thank-you/f" id="redirect_cae1bfd88dc067218ddb2f9d7a611f72" />
+            <input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/thank-you/f" />
+            <input type="hidden" name="meta_adtracking" value="Quiz_Funnel_Sign_Up_Form_(Female)" />
+            <input type="hidden" name="meta_message" value="1" />
+            <input type="hidden" name="meta_required" value="name,email" />
+
+
+
+            <input type="hidden" name="meta_tooltip" value="" />
+          </div>
+          <div id="af-form-359719133" className="af-form"><div id="af-body-359719133" className="af-body af-standards">
+            <div className="af-element">
+              <label className="previewLabel hidden" htmlFor="awf_field-118219805">Name:</label>
+              <div className="af-textWrap">
+                <input id="awf_field-118219805" {...register('name')} placeholder='Name' type="text" name="name" className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" tabIndex={500} />
+              </div>
+              <div className="af-clear"></div>
+            </div><div className="af-element">
+              <label className="previewLabel hidden " htmlFor="awf_field-118219806">Email:</label>
+              <div className="af-textWrap">
+                <input className="w-full py-3 px-4 border text-left  font-dmSans font-bold dark-brown border-white/30 bg-[rgba(255,255,255,0.42)] hover:bg-[rgba(255,255,255,0.20)] rounded-xl text-sm sm:text-xl mb-4" id="awf_field-118219806" type="email" tabIndex={501} placeholder='Email' {...register('email')} />
+              </div><div className="af-clear"></div>
+            </div><div className="af-element buttonContainer">
+              <input name="submit" className="w-full py-3 px-4 bg-yellow-500 hover:bg-yellow-600 text-black rounded-xl disabled:opacity-50 disabled:cursor-not-allowed text-sm sm:text-base" type="submit" value="Submit" tabIndex={502} disabled={
+                !watch('name') ||
+                !watch('email')
+              } />
+              <button
+                onClick={resetQuiz}
+                type="button"
+                className="mt-4 text-white block w-full text-center cursor-pointer text-sm hover:text-yellow-300"
+              >
+                ← Start Over
+              </button>
+              <div className="af-clear"></div>
+            </div>
+          </div>
+          </div>
+          <div className='hidden'><Image width={0} height={0} alt='aweber' src="https://forms.aweber.com/form/displays.htm?id=zKyc7IycjMzM" />
+          </div>
+
+        </form>
+      </>)}
+
+    </div>
+
   );
 
   const renderProduct = () => (
-  <Overlay>
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.8 }}
-      className="text-center px-4"
-    >
-      <div className="min-h-screen flex items-center justify-center rounded-2xl bg-gradient-to-br from-purple-900 via-indigo-900 to-black px-6 sm:px-12 py-12">
-        <div className="max-w-2xl text-white text-center space-y-6">
-          {gender === 'male' ? (
-            <>
-              <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight">
-                You Embody the Archetype of <span className="text-yellow-400">Moses</span>
-              </h1>
-              <p className="text-lg sm:text-xl font-medium">
-                And Your Mission is <span className="text-indigo-400">Divine Power and Purpose</span><br />
-                You were born to <strong>lead</strong>, <strong>liberate</strong>, and <strong>transform</strong>.
-              </p>
-              <p className="text-base sm:text-lg text-gray-200">
-                But you’ve been stuck in the desert far too long...<br />
-                Moses didn’t start out feeling confident. He questioned his worth. He ran from his calling.
-              </p>
-              <p className="text-base sm:text-lg text-gray-200">
-                But once he heard <span className="text-yellow-300">God’s voice</span> and aligned with his <span className="text-indigo-300">divine mission</span>…<br />
-                <strong>Everything changed.</strong>
-              </p>
-              <p className="text-base sm:text-lg text-gray-200">
-                Your brain holds the <strong>same manifestation code</strong> Moses used…<br />
-                To part the Red Sea and lead his people to abundance.
-              </p>
-              <p className="text-base sm:text-lg text-gray-300">
-                A recent <strong>neuroscientific breakthrough</strong> has finally decoded it.<br />
-                It can activate the exact part of your brain Moses used…<br />
-                To hear divine guidance and attract miraculous provision.
-              </p>
-              <p className="text-base sm:text-lg text-indigo-200">
-                This is the moment your soul has chosen to discover what it is…<br />
-                So you can fulfil your Divine Calling from God.
-              </p>
-              <a
-                href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
-                className="mt-6 px-8 py-4 bg-yellow-400 text-black font-bold rounded-full shadow-lg hover:bg-yellow-300 transition duration-300 text-lg"
-              >
-                Reveal the Moses Wealth Code Breakthrough Now!
-              </a>
-            </>
-          ) : (
-            <>
-              <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-rose-100 via-pink-200 to-rose-300 px-6 py-12">
-  <div className="max-w-2xl text-center space-y-6 text-gray-800">
-    
-    <h1 className="text-4xl sm:text-5xl font-extrabold leading-tight text-rose-700">
-      You Embody the Archetype of <span className="text-pink-600">Zipporah</span>
-    </h1>
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+      <div className="min-h-screen w-full text-white text-center">
+        {gender === 'male' ? (
+          <>
+            {/* Male Screen 1 */}
+            <div className="min-h-screen bg-[url(/Moses1.webp)] bg-cover bg-center flex flex-col items-center justify-center px-4">
+              <Image src="/Logo.webp" className="absolute w-24 h-24 sm:w-38 sm:h-38 top-4 left-4 z-10" alt="Logo" />
+              <div className="max-w-4xl flex flex-col items-center">
+                <h2 className="uppercase primary-color text-2xl sm:text-4xl font-bold font-bebas tracking-wide">
+                  You embody the archetype of
+                </h2>
+                <h1 className="uppercase orange text-[6rem] sm:text-[11rem] font-bold leading-none font-bebas tracking-wider mb-4">
+                  Moses
+                </h1>
+                <h2 className="uppercase primary-color text-2xl sm:text-4xl font-medium font-bebas tracking-wide">
+                  and your mission is
+                </h2>
+                <h1 className="uppercase azure text-4xl sm:text-6xl font-semibold mb-1">Divine power</h1>
+                <h2 className="uppercase primary-color text-4xl sm:text-6xl font-semibold mb-4">and purpose</h2>
+                <h3 className="uppercase primary-color text-2xl sm:text-4xl font-bebas mb-1">
+                  You were born to <span className="azure underline">Lead, Liberate</span>
+                </h3>
+                <h2 className="uppercase azure text-2xl sm:text-4xl font-bebas underline">and Transform</h2>
+              </div>
+            </div>
 
-    <p className="text-lg sm:text-xl font-medium text-rose-800">
-      The Sacred Feminine Partner of Divine Legacy
-    </p>
+            {/* Male Screen 2 */}
+            <div className="min-h-screen bg-[url(/Moses2.webp)] bg-cover bg-center flex justify-center items-center px-4">
+              <div className="max-w-5xl text-white font-dmSans text-lg sm:text-3xl font-semibold space-y-10">
+                <p>But you&apos;ve been stuck in the desert far too long...<br />Moses didn&apos;t start out feeling confident.</p>
+                <p>He questioned his worth. He ran from his calling.</p>
+                <p>But once he heard God&apos;s voice and aligned with his divine mission...<br />
+                  <span className="font-tinos underline italic">Everything Changed</span>
+                </p>
+                <p>Your brain holds the same manifestation code Moses used to part the Red Sea and lead his people to abundance.</p>
+                <p>A neuroscientific breakthrough has decoded it. It activates the same part of your brain Moses used to hear divine guidance.</p>
+                <p><span className="font-tinos underline italic">This is the moment</span> your soul has chosen to discover what it is.</p>
+              </div>
+            </div>
 
-    <p className="text-base sm:text-lg">
-      While Moses walked with God,<br/>
-      <strong className="text-rose-600">Zipporah walked beside him in faith.</strong>
-    </p>
+            {/* Male Screen 3 */}
+            <div className="min-h-screen bg-[url(/Moses3.webp)] bg-cover bg-center flex justify-center items-center px-4">
+              <div className="max-w-6xl text-center">
+                <h3 className="primary-color text-2xl sm:text-4xl font-semibold font-dmSans">So you can fulfill your</h3>
+                <h1 className="orange uppercase text-[5rem] sm:text-[10rem] leading-none font-bold font-bebas mt-4">
+                  Divine Calling
+                </h1>
+                <h2 className="azure text-4xl sm:text-6xl font-semibold font-bebas mb-8">From God.</h2>
+                <a
+                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+                  className="py-3 px-6 bg-yellow-500 hover:bg-yellow-600 text-black rounded-3xl text-sm sm:text-xl font-bold inline-block"
+                >
+                  Reveal the Moses Wealth Code Breakthrough Now!
+                </a>
+                <a
+                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+                  className="underline text-yellow-300 text-sm block mt-4"
+                >
+                  Click here if not redirected
+                </a>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Female Screen 1 */}
+            <div className="min-h-screen bg-[url(/Zipporah1.webp)] bg-cover bg-center flex flex-col items-center justify-center px-4">
+              <Image src="/Logo.webp" className="absolute top-4 left-4 z-10 h-24 w-24 sm:w-38 sm:h-38" alt="Logo" />
+              <div className="max-w-6xl flex flex-col items-center">
+                <h2 className="uppercase primary-color text-2xl sm:text-4xl font-bold font-bebas tracking-wide">You embody the archetype of</h2>
+                <h1 className="uppercase pastle text-[6rem] sm:text-[10rem] font-bebas font-semibold leading-none mb-2">
+                  Zipporah
+                </h1>
+                <h2 className="uppercase text-3xl sm:text-5xl primary-color font-bebas font-medium">The</h2>
+                <h2 className="uppercase text-3xl sm:text-5xl orange font-bebas font-bold">Sacred Feminine Partner</h2>
+                <h2 className="uppercase text-3xl sm:text-5xl primary-color font-bebas font-bold">Of divine legacy</h2>
+                <h3 className="uppercase font-bebas text-2xl sm:text-4xl primary-color tracking-wide mt-4">While Moses walked with God,</h3>
+                <h2 className="uppercase font-bebas text-2xl sm:text-4xl pastle font-semibold">Zipporah walked beside him in faith.</h2>
+              </div>
+            </div>
 
-    <p className="text-base sm:text-lg text-gray-700">
-      As Moses’ wife, Zipporah’s role was vital in fulfilling divine destiny…<br/>
-      Often behind the scenes, but never out of alignment.
-    </p>
+            {/* Female Screen 2 */}
+            <div className="min-h-screen bg-[url(/Moses2.webp)] bg-cover bg-center flex justify-center items-center px-4">
+              <div className="max-w-5xl text-white font-dmSans text-lg sm:text-3xl font-semibold space-y-10">
+                <p>As Moses&apos;s wife, Zipporah&apos;s role was vital in fulfilling divine destiny...<br />Often behind the scenes, but never out of alignment.</p>
+                <p className="italic underline">And now is the time to step into the role God created for you.</p>
+                <p>The manifestation code Moses used to part the Red Sea has now been decoded.</p>
+                <p>It activates the part of your brain to hear divine guidance and attract miraculous provision.</p>
+                <p>This powerful breakthrough isn&apos;t just for ancient prophets...<br />It&apos;s for women ready to step into their full spiritual inheritance.</p>
+              </div>
+            </div>
 
-    <p className="text-base sm:text-lg text-gray-700">
-      And now is the time to step into the role God created for you.
-    </p>
-
-    <p className="text-base sm:text-lg text-gray-700">
-      There is a specific, sacred manifestation code Moses used…<br/>
-      To part the Red Sea and lead his people to abundance.
-    </p>
-
-    <p className="text-base sm:text-lg text-gray-700">
-      A recent <span className="text-pink-700 font-semibold">neuroscientific breakthrough</span> has finally decoded it.<br/>
-      It can activate the exact part of your brain Moses used…<br/>
-      To hear divine guidance and attract miraculous provision.
-    </p>
-
-    <p className="text-base sm:text-lg text-gray-700">
-      This powerful breakthrough isn’t just for ancient prophets…<br/>
-      It’s also for women ready to step into their full spiritual inheritance.
-    </p>
-
-    <p className="text-base sm:text-lg text-rose-800 font-medium">
-      This is the moment your soul has chosen to discover what it is…<br/>
-      So you can fulfil your <span className="underline decoration-rose-500 font-semibold">Divine Calling from God</span>.
-    </p>
-
-    <button className="mt-6 px-8 py-4 bg-pink-600 text-white font-semibold rounded-full shadow-lg hover:bg-pink-500 transition duration-300 text-lg">
-      Reveal the Moses Wealth Code Breakthrough Now!
-    </button>
-
-  </div>
-</div>
-
-            </>
-          )}
-
-          <a
-            href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
-            className="underline text-yellow-300 text-sm block mt-4"
-          >
-            Click here if not redirected
-          </a>
-        </div>
+            {/* Female Screen 3 */}
+            <div className="min-h-screen bg-[url(/Moses3.webp)] bg-cover bg-center flex justify-center items-center px-4">
+              <div className="max-w-6xl text-center">
+                <h3 className="primary-color text-2xl sm:text-4xl font-dmSans font-semibold">
+                  This is the moment your soul has chosen to discover what it is...<br />So you can fulfill your...
+                </h3>
+                <h1 className="pastle uppercase text-[5rem] sm:text-[10rem] leading-none font-bold font-bebas mt-4">
+                  Divine Calling
+                </h1>
+                <h2 className="orange text-4xl sm:text-6xl font-bebas font-semibold mb-8">From God.</h2>
+                <a
+                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+                  className="py-3 px-6 bg-yellow-500 hover:bg-yellow-600 text-black rounded-3xl text-sm sm:text-xl font-bold inline-block"
+                >
+                  Reveal the Moses Wealth Code Breakthrough Now!
+                </a>
+                <a
+                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+                  className="underline text-yellow-300 text-sm block mt-4"
+                >
+                  Click here if not redirected
+                </a>
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </motion.div>
-  </Overlay>
-);
+  );
+
 
 
   if (step === 'landing') return renderLanding();
@@ -483,3 +584,6 @@ export default function AstroQuizPage() {
   if (step === 'product') return renderProduct();
   return null;
 }
+
+
+
