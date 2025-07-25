@@ -138,7 +138,7 @@ export default function AstroQuizPage() {
     if (nextIndex < sharedQuestions.length) {
       setStep(`${gender}-${nextIndex}`);
     } else {
-      setStep('product');
+      setStep('info');
     }
   };
 
