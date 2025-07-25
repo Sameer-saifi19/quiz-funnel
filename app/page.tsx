@@ -348,7 +348,7 @@ export default function AstroQuizPage() {
               <input type="hidden" name="meta_web_form_id" value="931623795" />
               <input type="hidden" name="meta_split_id" value="" />
               <input type="hidden" name="listname" value="awlist6899920" />
-              <input type="hidden" name="redirect" value="https://biblecharacterquiz.com/thank-you/m" id="redirect_aa440fc14656c1e387b8c5b6942dff3c" />
+              <input type="hidden" name="redirect" value="https://biblecharacterquiz.com/thank-you/m" />
               <input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/thank-you/m" />
               <input type="hidden" name="meta_adtracking" value="Quiz_Funnel_Sign_Up_Form_(Male)" />
               <input type="hidden" name="meta_message" value="1" />
