@@ -348,8 +348,8 @@ export default function AstroQuizPage() {
               <input type="hidden" name="meta_web_form_id" value="931623795" />
               <input type="hidden" name="meta_split_id" value="" />
               <input type="hidden" name="listname" value="awlist6899920" />
-              <input type="hidden" name="redirect" value="https://biblecharacterquiz.com/thank-you/m" id="redirect_e211f13f397e7f6083bde9de1cad9070" />
-              <input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/subscribed" />
+              <input type="hidden" name="redirect" value="https://quiz-funnel-six.vercel.app/thank-you/m" id="redirect_e211f13f397e7f6083bde9de1cad9070" />
+              <input type="hidden" name="meta_redirect_onlist" value="https://quiz-funnel-six.vercel.app/subscribed" />
               <input type="hidden" name="meta_adtracking" value="Quiz_Funnel_Sign_Up_Form_(Male)" />
               <input type="hidden" name="meta_message" value="1" />
               <input type="hidden" name="meta_required" value="name,email" />
