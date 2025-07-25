@@ -138,7 +138,7 @@ export default function AstroQuizPage() {
     if (nextIndex < sharedQuestions.length) {
       setStep(`${gender}-${nextIndex}`);
     } else {
-      setStep('info');
+      setStep('product');
     }
   };
 
@@ -326,132 +326,7 @@ export default function AstroQuizPage() {
     );
   };
 
-
-
-  const renderProduct = () => (
-    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
-      <div className="min-h-screen w-full text-white text-center">
-        {gender === 'male' ? (
-          <>
-            {/* Male Screen 1 */}
-            <div className="min-h-screen bg-[url(/Moses1.webp)] bg-cover bg-center flex flex-col items-center justify-center px-4">
-              <Image src="/Logo.webp" className="absolute w-24 h-24 sm:w-38 sm:h-38 top-4 left-4 z-10" alt="Logo" />
-              <div className="max-w-4xl flex flex-col items-center">
-                <h2 className="uppercase primary-color text-2xl sm:text-4xl font-bold font-bebas tracking-wide">
-                  You embody the archetype of
-                </h2>
-                <h1 className="uppercase orange text-[6rem] sm:text-[11rem] font-bold leading-none font-bebas tracking-wider mb-4">
-                  Moses
-                </h1>
-                <h2 className="uppercase primary-color text-2xl sm:text-4xl font-medium font-bebas tracking-wide">
-                  and your mission is
-                </h2>
-                <h1 className="uppercase azure text-4xl sm:text-6xl font-semibold mb-1">Divine power</h1>
-                <h2 className="uppercase primary-color text-4xl sm:text-6xl font-semibold mb-4">and purpose</h2>
-                <h3 className="uppercase primary-color text-2xl sm:text-4xl font-bebas mb-1">
-                  You were born to <span className="azure underline">Lead, Liberate</span>
-                </h3>
-                <h2 className="uppercase azure text-2xl sm:text-4xl font-bebas underline">and Transform</h2>
-              </div>
-            </div>
-
-            {/* Male Screen 2 */}
-            <div className="min-h-screen bg-[url(/Moses2.webp)] bg-cover bg-center flex justify-center items-center px-4">
-              <div className="max-w-5xl text-white font-dmSans text-lg sm:text-3xl font-semibold space-y-10">
-                <p>But you&apos;ve been stuck in the desert far too long...<br />Moses didn&apos;t start out feeling confident.</p>
-                <p>He questioned his worth. He ran from his calling.</p>
-                <p>But once he heard God&apos;s voice and aligned with his divine mission...<br />
-                  <span className="font-tinos underline italic">Everything Changed</span>
-                </p>
-                <p>Your brain holds the same manifestation code Moses used to part the Red Sea and lead his people to abundance.</p>
-                <p>A neuroscientific breakthrough has decoded it. It activates the same part of your brain Moses used to hear divine guidance.</p>
-                <p><span className="font-tinos underline italic">This is the moment</span> your soul has chosen to discover what it is.</p>
-              </div>
-            </div>
-
-            {/* Male Screen 3 */}
-            <div className="min-h-screen bg-[url(/Moses3.webp)] bg-cover bg-center flex justify-center items-center px-4">
-              <div className="max-w-6xl text-center">
-                <h3 className="primary-color text-2xl sm:text-4xl font-semibold font-dmSans">So you can fulfill your</h3>
-                <h1 className="orange uppercase text-[5rem] sm:text-[10rem] leading-none font-bold font-bebas mt-4">
-                  Divine Calling
-                </h1>
-                <h2 className="azure text-4xl sm:text-6xl font-semibold font-bebas mb-8">From God.</h2>
-                <a
-                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
-                  className="py-3 px-6 bg-yellow-500 hover:bg-yellow-600 text-black rounded-3xl text-sm sm:text-xl font-bold inline-block"
-                >
-                  Reveal the Moses Wealth Code Breakthrough Now!
-                </a>
-                <a
-                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
-                  className="underline text-yellow-300 text-sm block mt-4"
-                >
-                  Click here if not redirected
-                </a>
-              </div>
-            </div>
-          </>
-        ) : (
-          <>
-            {/* Female Screen 1 */}
-            <div className="min-h-screen bg-[url(/Zipporah1.webp)] bg-cover bg-center flex flex-col items-center justify-center px-4">
-              <Image src="/Logo.webp" className="absolute top-4 left-4 z-10 h-24 w-24 sm:w-38 sm:h-38" alt="Logo" />
-              <div className="max-w-6xl flex flex-col items-center">
-                <h2 className="uppercase primary-color text-2xl sm:text-4xl font-bold font-bebas tracking-wide">You embody the archetype of</h2>
-                <h1 className="uppercase pastle text-[6rem] sm:text-[10rem] font-bebas font-semibold leading-none mb-2">
-                  Zipporah
-                </h1>
-                <h2 className="uppercase text-3xl sm:text-5xl primary-color font-bebas font-medium">The</h2>
-                <h2 className="uppercase text-3xl sm:text-5xl orange font-bebas font-bold">Sacred Feminine Partner</h2>
-                <h2 className="uppercase text-3xl sm:text-5xl primary-color font-bebas font-bold">Of divine legacy</h2>
-                <h3 className="uppercase font-bebas text-2xl sm:text-4xl primary-color tracking-wide mt-4">While Moses walked with God,</h3>
-                <h2 className="uppercase font-bebas text-2xl sm:text-4xl pastle font-semibold">Zipporah walked beside him in faith.</h2>
-              </div>
-            </div>
-
-            {/* Female Screen 2 */}
-            <div className="min-h-screen bg-[url(/Moses2.webp)] bg-cover bg-center flex justify-center items-center px-4">
-              <div className="max-w-5xl text-white font-dmSans text-lg sm:text-3xl font-semibold space-y-10">
-                <p>As Moses&apos;s wife, Zipporah&apos;s role was vital in fulfilling divine destiny...<br />Often behind the scenes, but never out of alignment.</p>
-                <p className="italic underline">And now is the time to step into the role God created for you.</p>
-                <p>The manifestation code Moses used to part the Red Sea has now been decoded.</p>
-                <p>It activates the part of your brain to hear divine guidance and attract miraculous provision.</p>
-                <p>This powerful breakthrough isn&apos;t just for ancient prophets...<br />It&apos;s for women ready to step into their full spiritual inheritance.</p>
-              </div>
-            </div>
-
-            {/* Female Screen 3 */}
-            <div className="min-h-screen bg-[url(/Moses3.webp)] bg-cover bg-center flex justify-center items-center px-4">
-              <div className="max-w-6xl text-center">
-                <h3 className="primary-color text-2xl sm:text-4xl font-dmSans font-semibold">
-                  This is the moment your soul has chosen to discover what it is...<br />So you can fulfill your...
-                </h3>
-                <h1 className="pastle uppercase text-[5rem] sm:text-[10rem] leading-none font-bold font-bebas mt-4">
-                  Divine Calling
-                </h1>
-                <h2 className="orange text-4xl sm:text-6xl font-bebas font-semibold mb-8">From God.</h2>
-                <a
-                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
-                  className="py-3 px-6 bg-yellow-500 hover:bg-yellow-600 text-black rounded-3xl text-sm sm:text-xl font-bold inline-block"
-                >
-                  Reveal the Moses Wealth Code Breakthrough Now!
-                </a>
-                <a
-                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
-                  className="underline text-yellow-300 text-sm block mt-4"
-                >
-                  Click here if not redirected
-                </a>
-              </div>
-            </div>
-          </>
-        )}
-      </div>
-    </motion.div>
-  );
-
-    const renderInfoForm = () => (
+  const renderInfoForm = () => (
 
     <div className='bg-[url(/QP2.webp)] px-4 min-h-screen flex flex-col justify-center items-center '>
       <header className='absolute top-4 left-4 z-50'>
@@ -577,12 +452,144 @@ export default function AstroQuizPage() {
 
   );
 
+  const renderProduct = () => (
+    <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.8 }}>
+      <div className="min-h-screen w-full text-white text-center">
+        {gender === 'male' ? (
+          <>
+            {/* Male Screen 1 */}
+            <div className="min-h-screen bg-[url(/Moses1.webp)] bg-cover bg-center flex flex-col items-center justify-center px-4">
+              <Image src="/Logo.webp" className="absolute w-24 h-24 sm:w-38 sm:h-38 top-4 left-4 z-10" alt="Logo" />
+              <div className="max-w-4xl flex flex-col items-center">
+                <h2 className="uppercase primary-color text-2xl sm:text-4xl font-bold font-bebas tracking-wide">
+                  You embody the archetype of
+                </h2>
+                <h1 className="uppercase orange text-[6rem] sm:text-[11rem] font-bold leading-none font-bebas tracking-wider mb-4">
+                  Moses
+                </h1>
+                <h2 className="uppercase primary-color text-2xl sm:text-4xl font-medium font-bebas tracking-wide">
+                  and your mission is
+                </h2>
+                <h1 className="uppercase azure text-4xl sm:text-6xl font-semibold mb-1">Divine power</h1>
+                <h2 className="uppercase primary-color text-4xl sm:text-6xl font-semibold mb-4">and purpose</h2>
+                <h3 className="uppercase primary-color text-2xl sm:text-4xl font-bebas mb-1">
+                  You were born to <span className="azure underline">Lead, Liberate</span>
+                </h3>
+                <h2 className="uppercase azure text-2xl sm:text-4xl font-bebas underline">and Transform</h2>
+              </div>
+            </div>
+
+            {/* Male Screen 2 */}
+            <div className="min-h-screen bg-[url(/Moses2.webp)] bg-cover bg-center flex justify-center items-center px-4">
+              <div className="max-w-5xl text-white font-dmSans text-lg sm:text-3xl font-semibold space-y-10">
+                <p>But you&apos;ve been stuck in the desert far too long...<br />Moses didn&apos;t start out feeling confident.</p>
+                <p>He questioned his worth. He ran from his calling.</p>
+                <p>But once he heard God&apos;s voice and aligned with his divine mission...<br />
+                  <span className="font-tinos underline italic">Everything Changed</span>
+                </p>
+                <p>Your brain holds the same manifestation code Moses used to part the Red Sea and lead his people to abundance.</p>
+                <p>A neuroscientific breakthrough has decoded it. It activates the same part of your brain Moses used to hear divine guidance.</p>
+                <p><span className="font-tinos underline italic">This is the moment</span> your soul has chosen to discover what it is.</p>
+              </div>
+            </div>
+
+            {/* Male Screen 3 */}
+            <div className="min-h-screen bg-[url(/Moses3.webp)] bg-cover bg-center flex justify-center items-center px-4">
+              <div className="max-w-6xl text-center">
+                <h3 className="primary-color text-2xl sm:text-4xl font-semibold font-dmSans">So you can fulfill your</h3>
+                <h1 className="orange uppercase text-[5rem] sm:text-[10rem] leading-none font-bold font-bebas mt-4">
+                  Divine Calling
+                </h1>
+                <h2 className="azure text-4xl sm:text-6xl font-semibold font-bebas mb-8">From God.</h2>
+                <a
+                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+                  className="py-3 px-6 bg-yellow-500 hover:bg-yellow-600 text-black rounded-3xl text-sm sm:text-xl font-bold inline-block"
+                >
+                  Reveal the Moses Wealth Code Breakthrough Now!
+                </a>
+                <button
+                  onClick={() => setStep('info')}
+                  className="mt-6 py-3 px-6 bg-yellow-500 hover:bg-yellow-600 text-black rounded-3xl text-sm sm:text-xl font-bold inline-block"
+                >
+                  Continue to Unlock Your Blueprint →
+                </button>
+
+                <a
+                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+                  className="underline text-yellow-300 text-sm block mt-4"
+                >
+                  Click here if not redirected
+                </a>
+              </div>
+            </div>
+          </>
+        ) : (
+          <>
+            {/* Female Screen 1 */}
+            <div className="min-h-screen bg-[url(/Zipporah1.webp)] bg-cover bg-center flex flex-col items-center justify-center px-4">
+              <Image src="/Logo.webp" className="absolute top-4 left-4 z-10 h-24 w-24 sm:w-38 sm:h-38" alt="Logo" />
+              <div className="max-w-6xl flex flex-col items-center">
+                <h2 className="uppercase primary-color text-2xl sm:text-4xl font-bold font-bebas tracking-wide">You embody the archetype of</h2>
+                <h1 className="uppercase pastle text-[6rem] sm:text-[10rem] font-bebas font-semibold leading-none mb-2">
+                  Zipporah
+                </h1>
+                <h2 className="uppercase text-3xl sm:text-5xl primary-color font-bebas font-medium">The</h2>
+                <h2 className="uppercase text-3xl sm:text-5xl orange font-bebas font-bold">Sacred Feminine Partner</h2>
+                <h2 className="uppercase text-3xl sm:text-5xl primary-color font-bebas font-bold">Of divine legacy</h2>
+                <h3 className="uppercase font-bebas text-2xl sm:text-4xl primary-color tracking-wide mt-4">While Moses walked with God,</h3>
+                <h2 className="uppercase font-bebas text-2xl sm:text-4xl pastle font-semibold">Zipporah walked beside him in faith.</h2>
+              </div>
+            </div>
+
+            {/* Female Screen 2 */}
+            <div className="min-h-screen bg-[url(/Moses2.webp)] bg-cover bg-center flex justify-center items-center px-4">
+              <div className="max-w-5xl text-white font-dmSans text-lg sm:text-3xl font-semibold space-y-10">
+                <p>As Moses&apos;s wife, Zipporah&apos;s role was vital in fulfilling divine destiny...<br />Often behind the scenes, but never out of alignment.</p>
+                <p className="italic underline">And now is the time to step into the role God created for you.</p>
+                <p>The manifestation code Moses used to part the Red Sea has now been decoded.</p>
+                <p>It activates the part of your brain to hear divine guidance and attract miraculous provision.</p>
+                <p>This powerful breakthrough isn&apos;t just for ancient prophets...<br />It&apos;s for women ready to step into their full spiritual inheritance.</p>
+              </div>
+            </div>
+
+            {/* Female Screen 3 */}
+            <div className="min-h-screen bg-[url(/Moses3.webp)] bg-cover bg-center flex justify-center items-center px-4">
+              <div className="max-w-6xl text-center">
+                <h3 className="primary-color text-2xl sm:text-4xl font-dmSans font-semibold">
+                  This is the moment your soul has chosen to discover what it is...<br />So you can fulfill your...
+                </h3>
+                <h1 className="pastle uppercase text-[5rem] sm:text-[10rem] leading-none font-bold font-bebas mt-4">
+                  Divine Calling
+                </h1>
+                <h2 className="orange text-4xl sm:text-6xl font-bebas font-semibold mb-8">From God.</h2>
+                <a
+                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+                  className="py-3 px-6 bg-yellow-500 hover:bg-yellow-600 text-black rounded-3xl text-sm sm:text-xl font-bold inline-block"
+                >
+                  Reveal the Moses Wealth Code Breakthrough Now!
+                </a>
+                <a
+                  href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+                  className="underline text-yellow-300 text-sm block mt-4"
+                >
+                  Click here if not redirected
+                </a>
+              </div>
+            </div>
+          </>
+        )}
+      </div>
+    </motion.div>
+  );
+
+
+
 
   if (step === 'landing') return renderLanding();
   if (step === 'gender') return renderGender();
   if (isQuestionStep) return renderQuestion();
-  if (step === 'product') return renderProduct();
   if (step === 'info') return renderInfoForm();
+  if (step === 'product') return renderProduct();
   return null;
 }
 
