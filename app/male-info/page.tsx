@@ -21,7 +21,7 @@ export default function MaleInfo() {
               <input type="hidden" name="meta_web_form_id" value="931623795" />
               <input type="hidden" name="meta_split_id" value="" />
               <input type="hidden" name="listname" value="awlist6899920" />
-              <input type="hidden" name="redirect" value="https://biblecharacterquiz.com/thank-you/m" id="redirect_1cfcd393c96bf961dd5a6992422f842a" />
+              <input type="hidden" name="redirect" value="https://biblecharacterquiz.com/thank-you-m" id="redirect_1cfcd393c96bf961dd5a6992422f842a" />
               <input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/subscribed" />
               <input type="hidden" name="meta_adtracking" value="Quiz_Funnel_Sign_Up_Form_(Male)" />
               <input type="hidden" name="meta_message" value="1" />
