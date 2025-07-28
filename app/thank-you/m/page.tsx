@@ -1,0 +1,40 @@
+"use client"
+
+import { useEffect } from 'react';
+import { useRouter } from 'next/navigation';
+import { motion } from 'framer-motion';
+import Image from "next/image";
+
+export default function ThankyouMale() {
+    const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      router.push('/product-male');
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, [router]);
+    return (
+        <>
+            <div className='min-h-screen flex justify-center bg-[url(/Moses1.webp)] items-center '>
+                <Image alt='logo' src={"/Logo.webp"} priority={true} className='absolute top-4 left-4 h-24 w-24 z-10 sm:h-32 sm:w-32' width={150} height={150}></Image>
+
+                <motion.div
+                    initial={{ opacity: 0, y: 40 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.8 }}
+                    className="sm:max-w-5xl px-4 sm:w-full text-center"
+                >
+                    <h1 className="sm:text-6xl sm:font-bold text-5xl font-semibold text-primary">Thank You for Subscribing! 🎉</h1>
+                    <p className="mt-4 text-xl text-azure sm:text-4xl">
+                        We&apos;ve successfully added you to our list. You&apos;ll be redirected to the homepage shortly.
+                    </p>
+                    <div className="mt-6">
+                        <span className="text-lg text-blue-100">Redirecting in 5 seconds...</span>
+                    </div>
+                </motion.div>
+            </div>
+        </>
+    )
+}
