@@ -70,6 +70,7 @@ export default function FemaleQuestions() {
         } else {
             setTimeout(() => {
                 console.log("Submitted Answers:", updated);
+                router.push('/female-info')
             }, 200);
         }
     };
