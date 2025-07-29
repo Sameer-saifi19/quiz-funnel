@@ -9,7 +9,7 @@ export default function alreadySubscribed() {
                     
                     className="sm:max-w-5xl px-4 sm:w-full text-center"
                 >
-                    <h1 className="sm:text-6xl sm:font-bold text-5xl font-semibold text-a">Thank You for Subscribing! 🎉</h1>
+                    <h1 className="sm:text-6xl sm:font-bold text-5xl font-semibold text-a">You are already Subscribed! 🎉</h1>
                 </div>
             </div>
         </>
