@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 import { useInView } from 'react-intersection-observer'
 import { useEffect } from "react";
 
@@ -19,46 +19,30 @@ export default function ProductFemale() {
         }
     }, [router])
 
-     const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 });
+    const [ref, inView] = useInView({ triggerOnce: true, threshold: 0.3 });
 
     const slideRightVariant = {
         hidden: { x: 200, opacity: 0 },
         visible: {
             x: 0,
             opacity: 1,
-            transition: { duration: 0.8, ease: 'easeOut', delay: 0.3 },
+            transition: { duration: 0.8, ease: easeOut, delay: 0.3 },
         },
     };
 
-    const scaleUpVariant = {
-        hidden: { scale: 0 },
-        visible: {
-            scale: 1,
-            rotate: [3, -3],
-            transition: {
-                repeat: Infinity,
-                repeatType: 'reverse',
-                duration: 0.3,
-                ease: 'easeInOut',
-                scale: { type: 'spring', bounce: 0.1 },
-            },
-        },
-    };
-    
 
     const [ref1, inView1] = useInView({ triggerOnce: true, threshold: 0.2 });
     const [ref2, inView2] = useInView({ triggerOnce: true, threshold: 0.2 });
     const [ref3, inView3] = useInView({ triggerOnce: true, threshold: 0.2 });
     const [ref4, inView4] = useInView({ triggerOnce: true, threshold: 0.2 });
     const [ref5, inView5] = useInView({ triggerOnce: true, threshold: 0.2 });
-    const [ref6, inView6] = useInView({ triggerOnce: true, threshold: 0.2 });
 
     const animLeft = {
         hidden: { opacity: 0, x: -80 },
         visible: {
             opacity: 1,
             x: 0,
-            transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+            transition: { duration: 0.8, ease: easeOut },
         },
     };
 
@@ -67,9 +51,10 @@ export default function ProductFemale() {
         visible: {
             opacity: 1,
             x: 0,
-            transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+            transition: { duration: 0.8, ease: easeOut },
         },
     };
+
 
     return (
         <>
@@ -86,16 +71,16 @@ export default function ProductFemale() {
 
                     <div className="max-w-6xl flex flex-col items-center">
                         <h2 className="uppercase text-primary text-2xl sm:text-5xl font-bold font-bebas tracking-wide">You embody the archetype of</h2>
-                        <motion.h1 initial={{ x: 200, opacity: 0 }}  // Start from right (off-screen)
+                        <motion.h1 initial={{ x: 200, opacity: 0 }}  
                             animate={{ x: 0, opacity: 1 }}    // Move to center
-                            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.3 }} className="uppercase text-pastle text-[6rem] sm:text-[14rem] font-bebas font-semibold leading-none mb-2">
+                            transition={{ duration: 0.8, ease: easeOut, delay: 0.3 }} className="uppercase text-pastle text-[6rem] sm:text-[14rem] font-bebas font-semibold leading-none mb-2">
                             Zipporah
                         </motion.h1>
                         <h2 className="uppercase text-3xl sm:text-5xl text-primary font-bebas font-medium">The</h2>
                         <motion.h2 initial={{ x: 200, opacity: 0 }}  // Start from right (off-screen)
                             animate={{ x: 0, opacity: 1 }}    // Move to center
-                            transition={{ duration: 0.8, ease: 'easeOut', delay: 0.40 }} className="uppercase text-3xl sm:text-7xl text-orange font-bebas font-bold">Sacred Feminine Partner</motion.h2>
-                        <motion.h2  initial={{ x: -200, opacity: 0 }}  // Start from right (off-screen)
+                            transition={{ duration: 0.8, ease: easeOut, delay: 0.40 }} className="uppercase text-3xl sm:text-7xl text-orange font-bebas font-bold">Sacred Feminine Partner</motion.h2>
+                        <motion.h2 initial={{ x: -200, opacity: 0 }}  // Start from right (off-screen)
                             animate={{ x: 0, opacity: 1 }}    // Move to center
                             transition={{ duration: 0.8, ease: 'easeOut', delay: 0.45 }} className="uppercase text-3xl sm:text-7xl text-primary font-bebas font-bold">Of divine legacy</motion.h2>
                         <h3 className="uppercase font-bebas text-2xl sm:text-5xl text-primary tracking-wide mt-4">While Moses walked with God,</h3>
@@ -171,9 +156,14 @@ export default function ProductFemale() {
                             initial="hidden"
                             animate={inView ? 'visible' : 'hidden'} className="text-orange text-4xl sm:text-6xl font-bebas font-semibold mb-8">From God.</motion.h2>
                         <motion.a
-                            variants={scaleUpVariant}
-                            initial="hidden"
-                            animate={inView ? 'visible' : 'hidden'}
+                            animate={{ scale: 1, rotate: [3, -3] }}
+                            transition={{
+                                repeat: Infinity,
+                                repeatType: 'reverse',
+                                duration: 0.3,
+                                ease: easeOut,
+                                scale: { type: 'spring', bounce: 0.1 }
+                            }}
                             href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
                             className="py-3 px-6 bg-yellow-500 hover:bg-yellow-600 text-black rounded-3xl text-sm sm:text-xl font-bold inline-block"
                         >

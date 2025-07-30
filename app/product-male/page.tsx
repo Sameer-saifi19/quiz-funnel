@@ -4,7 +4,7 @@ import Image from "next/image";
 import { useInView } from 'react-intersection-observer';
 import { useRouter } from "next/navigation";
 import { useEffect } from "react";
-import { motion } from "framer-motion";
+import { motion, easeOut } from "framer-motion";
 
 export default function ProductMale() {
     const router = useRouter();
@@ -26,24 +26,10 @@ export default function ProductMale() {
         visible: {
             x: 0,
             opacity: 1,
-            transition: { duration: 0.8, ease: 'easeOut', delay: 0.3 },
+            transition: { duration: 0.8, ease: easeOut, delay: 0.3 },
         },
     };
 
-    const scaleUpVariant = {
-        hidden: { scale: 0 },
-        visible: {
-            scale: 1,
-            rotate: [3, -3],
-            transition: {
-                repeat: Infinity,
-                repeatType: 'reverse',
-                duration: 0.3,
-                ease: 'easeInOut',
-                scale: { type: 'spring', bounce: 0.1 },
-            },
-        },
-    };
 
     const [ref1, inView1] = useInView({ triggerOnce: true, threshold: 0.2 });
     const [ref2, inView2] = useInView({ triggerOnce: true, threshold: 0.2 });
@@ -57,7 +43,7 @@ export default function ProductMale() {
         visible: {
             opacity: 1,
             x: 0,
-            transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+            transition: { duration: 0.8, ease: easeOut },
         },
     };
 
@@ -66,7 +52,7 @@ export default function ProductMale() {
         visible: {
             opacity: 1,
             x: 0,
-            transition: { duration: 0.8, ease: [0.25, 0.1, 0.25, 1] },
+            transition: { duration: 0.8, ease: easeOut },
         },
     };
 
@@ -119,9 +105,9 @@ export default function ProductMale() {
                             initial="hidden"
                             animate={inView1 ? 'visible' : 'hidden'}
                         >
-                            But you've been stuck in the desert far too long...
+                            But you&apos;ve been stuck in the desert far too long...
                             <br />
-                            Moses didn't start out feeling confident.
+                            Moses didn&apos;t start out feeling confident.
                         </motion.p>
 
                         <motion.p
@@ -139,7 +125,7 @@ export default function ProductMale() {
                             initial="hidden"
                             animate={inView3 ? 'visible' : 'hidden'}
                         >
-                            But once he heard God's voice and aligned with his divine mission...
+                            But once he heard God&apos;s voice and aligned with his divine mission...
                             <br />
                             <motion.span
                                 variants={animRight}
@@ -214,9 +200,14 @@ export default function ProductMale() {
                         </motion.h2>
 
                         <motion.a
-                            variants={scaleUpVariant}
-                            initial="hidden"
-                            animate={inView ? 'visible' : 'hidden'}
+                            animate={{ scale: 1, rotate: [3, -3] }}
+                            transition={{
+                                repeat: Infinity,
+                                repeatType: 'reverse',
+                                duration: 0.3,
+                                ease: easeOut,
+                                scale: { type: 'spring', bounce: 0.1 }
+                            }}
                             href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
                             className="py-3 px-6 bg-yellow-500 hover:bg-yellow-600 text-black rounded-3xl text-sm sm:text-xl font-bold inline-block"
                         >
