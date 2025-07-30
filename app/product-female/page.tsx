@@ -11,7 +11,7 @@ export default function ProductFemale() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            router.push('/')
+            router.push('https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219')
         }, 60000)
 
         return () => {
