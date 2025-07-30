@@ -1,6 +1,17 @@
 import Image from "next/image";
+import { useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 export default function alreadySubscribed() {
+     const router = useRouter();
+    
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          router.push('/product-male');
+        }, 5000);
+    
+        return () => clearTimeout(timer);
+      }, [router]);
     return (
         <>
             <div className='min-h-screen flex justify-center bg-[url(/Moses1.webp)] items-center '>

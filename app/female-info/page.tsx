@@ -24,7 +24,7 @@ export default function FemaleInfo() {
                         <input type="hidden" name="meta_split_id" value="" />
                         <input type="hidden" name="listname" value="awlist6899921" />
                         <input type="hidden" name="redirect" value="https://biblecharacterquiz.com/thank-you-f" id="redirect_929dcf6ff2c8db7ebac4112154381b67" />
-                        <input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/subscribed" />
+                        <input type="hidden" name="meta_redirect_onlist" value="https://biblecharacterquiz.com/thank-you-f" />
                         <input type="hidden" name="meta_adtracking" value="Quiz_Funnel_Sign_Up_Form_(Female)" />
                         <input type="hidden" name="meta_message" value="1" />
                         <input type="hidden" name="meta_required" value="name,email" />
