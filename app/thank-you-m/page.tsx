@@ -1,20 +1,30 @@
 "use client"
 
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { motion } from 'framer-motion';
 import Image from "next/image";
 
 export default function ThankyouMale() {
     const router = useRouter();
+        const [seconds, setSeconds] = useState(5); // Countdown starts at 5
+    
+        useEffect(() => {
+            const countdown = setInterval(() => {
+                setSeconds((prev) => prev - 1);
+            }, 1000);
+    
+            const redirectTimer = setTimeout(() => {
+                router.push('/product-female');
+            }, 5000);
+    
+            return () => {
+                clearInterval(countdown);
+                clearTimeout(redirectTimer);
+            };
+        }, [router]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      router.push('/product-male');
-    }, 5000);
-
-    return () => clearTimeout(timer);
-  }, [router]);
+        
     return (
         <>
             <div className='min-h-screen flex justify-center bg-[url(/Moses1.webp)] items-center '>
@@ -31,7 +41,7 @@ export default function ThankyouMale() {
                         We&apos;ve successfully added you to our list. You&apos;ll be redirected to the homepage shortly.
                     </p>
                     <div className="mt-6">
-                        <span className="text-lg text-blue-100">Redirecting in 5 seconds...</span>
+                        <span className="text-lg text-blue-100">Redirecting in {seconds} second{seconds !== 1 && 's'}...</span>
                     </div>
                 </motion.div>
             </div>
