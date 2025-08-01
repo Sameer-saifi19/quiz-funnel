@@ -15,7 +15,7 @@ export default function ThankyouMale() {
             }, 1000);
     
             const redirectTimer = setTimeout(() => {
-                router.push('/product-female');
+                router.push('/product-male');
             }, 5000);
     
             return () => {
