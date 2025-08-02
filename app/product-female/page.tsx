@@ -11,7 +11,7 @@ export default function ProductFemale() {
 
     useEffect(() => {
         const timer = setTimeout(() => {
-            router.push('https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219')
+            router.push('https://accelevate8.co/QuizMWCZipporah/CTf')
         }, 60000)
 
         return () => {
@@ -170,7 +170,7 @@ export default function ProductFemale() {
                             Reveal the Moses Wealth Code Breakthrough Now!
                         </motion.a>
                         <a
-                            href="https://www.moseswealthcode.com/mwc-vsl-ct-l2h1-219"
+                            href="https://accelevate8.co/QuizMWCZipporah/CTf"
                             className="underline text-yellow-300 text-sm block mt-4"
                         >
                             Click here if not redirected
